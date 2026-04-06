@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.env
+venv/
+
+# Expo
+.expo/
+dist/
+
+# External repos (cloned, not part of this project)
+Product-Manager-Skills/
+ui-ux-pro-max-skill/
+sprint-dashboard/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+*.tflite
+*.h5

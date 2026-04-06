@@ -1,0 +1,61 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.0/schema.json",
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noArrayIndexKey": "warn"
+      },
+      "complexity": {
+        "noForEach": "off",
+        "useLiteralKeys": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "off",
+        "useConst": "error",
+        "noVar": "error",
+        "useTemplate": "warn"
+      },
+      "correctness": {
+        "noUnusedVariables": "error",
+        "noUnusedImports": "error",
+        "useExhaustiveDependencies": "warn"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "error"
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 4,
+    "lineWidth": 120
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "always"
+    }
+  },
+  "files": {
+    "include": [
+      "personal-health-android/src/**/*.js",
+      "personal-health-android/App.js",
+      "personal-health-frontend/server.js",
+      "personal-health-frontend/views/**/*.ejs"
+    ],
+    "ignore": [
+      "node_modules",
+      "*.min.js",
+      ".expo",
+      "dist",
+      "build"
+    ]
+  }
+}
