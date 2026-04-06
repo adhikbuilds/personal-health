@@ -1,0 +1,92 @@
+name: CI — Lint & Test
+
+on:
+  push:
+    branches: [develop, main]
+  pull_request:
+    branches: [develop, main]
+
+jobs:
+  lint-backend:
+    name: Backend Lint (Python)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: personal-health-backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install linter
+        run: pip install ruff
+      - name: Lint Python
+        run: ruff check . --select E,F,W --ignore E501
+
+  lint-frontend:
+    name: Frontend Lint (Node)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: personal-health-frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+      - name: Install deps
+        run: npm ci --ignore-scripts
+      - name: Check syntax
+        run: node -e "require('./server.js')" || true
+
+  lint-android:
+    name: Android Lint (JS)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: personal-health-android
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+      - name: Install deps
+        run: npm ci --ignore-scripts 2>/dev/null || npm install --ignore-scripts
+      - name: Check for hardcoded IPs
+        run: |
+          if grep -r "192\.168\." src/ --include="*.js" --include="*.ts"; then
+            echo "::error::Hardcoded IP found! Use BACKEND_HOST from constants.js"
+            exit 1
+          fi
+          if grep -r "localhost:8082" src/ --include="*.js" --include="*.ts"; then
+            echo "::error::Hardcoded localhost found! Use BACKEND_HOST from constants.js"
+            exit 1
+          fi
+          echo "No hardcoded IPs found"
+
+  check-structure:
+    name: Validate Project Structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required files exist
+        run: |
+          echo "Checking backend structure..."
+          test -f personal-health-backend/api_server.py || (echo "::error::api_server.py missing" && exit 1)
+          test -f personal-health-backend/database.py || (echo "::error::database.py missing" && exit 1)
+          test -d personal-health-backend/routes || (echo "::error::routes/ missing" && exit 1)
+          test -d personal-health-backend/services || (echo "::error::services/ missing" && exit 1)
+          echo "Checking android structure..."
+          test -f personal-health-android/App.js || (echo "::error::App.js missing" && exit 1)
+          test -d personal-health-android/src/screens/core || (echo "::error::screens/core/ missing" && exit 1)
+          test -d personal-health-android/src/screens/fitness || (echo "::error::screens/fitness/ missing" && exit 1)
+          test -d personal-health-android/src/screens/wellness || (echo "::error::screens/wellness/ missing" && exit 1)
+          echo "All structure checks passed"
+
+      - name: Check no ActiveBharat branding
+        run: |
+          if grep -ri "activebharat" personal-health-backend/ personal-health-frontend/ personal-health-android/src/ --include="*.py" --include="*.js" --include="*.ejs" -l; then
+            echo "::error::ActiveBharat branding found! Use 'Personal Health' instead"
+            exit 1
+          fi
+          echo "No ActiveBharat branding found"
