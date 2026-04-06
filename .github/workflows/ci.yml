@@ -1,4 +1,4 @@
-name: CI — Lint & Test
+name: CI — Lint, Check & Guard
 
 on:
   push:
@@ -6,9 +6,16 @@ on:
   pull_request:
     branches: [develop, main]
 
+# Cancel in-progress runs for same branch
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  lint-backend:
-    name: Backend Lint (Python)
+
+  # ─── Python Lint (ruff) ──────────────────────────────────────────────────
+  ruff:
+    name: "Python: ruff lint"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -18,75 +25,141 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install linter
+      - name: Install ruff
         run: pip install ruff
-      - name: Lint Python
-        run: ruff check . --select E,F,W --ignore E501
+      - name: Lint (errors = fail)
+        run: ruff check . --config ruff.toml
+      - name: Format check (diff only, fails if unformatted)
+        run: ruff format --check .
 
-  lint-frontend:
-    name: Frontend Lint (Node)
+  # ─── JS/JSX Lint (biome) ─────────────────────────────────────────────────
+  biome:
+    name: "JS: biome lint"
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: personal-health-frontend
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "18"
-      - name: Install deps
-        run: npm ci --ignore-scripts
-      - name: Check syntax
-        run: node -e "require('./server.js')" || true
+      - name: Install biome
+        run: npm install -g @biomejs/biome@latest
+      - name: Lint Android + Frontend (errors = fail)
+        run: biome lint . --config-path biome.json
+      - name: Format check (fails if unformatted)
+        run: biome format . --config-path biome.json
 
-  lint-android:
-    name: Android Lint (JS)
+  # ─── Hardcoded Values Check ──────────────────────────────────────────────
+  no-hardcoded-ips:
+    name: "Guard: no hardcoded IPs"
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: personal-health-android
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-      - name: Install deps
-        run: npm ci --ignore-scripts 2>/dev/null || npm install --ignore-scripts
-      - name: Check for hardcoded IPs
+      - name: Scan for hardcoded IPs in source
         run: |
-          if grep -r "192\.168\." src/ --include="*.js" --include="*.ts"; then
-            echo "::error::Hardcoded IP found! Use BACKEND_HOST from constants.js"
-            exit 1
+          echo "Checking for hardcoded IPs..."
+          FOUND=0
+
+          # Check Android source
+          if grep -rn "192\.168\.\|10\.0\.\|172\.1[6-9]\.\|172\.2[0-9]\.\|172\.3[01]\." \
+            personal-health-android/src/ --include="*.js" --include="*.ts" --include="*.jsx" --include="*.tsx"; then
+            echo "::error::Hardcoded private IP found in Android source!"
+            FOUND=1
           fi
-          if grep -r "localhost:8082" src/ --include="*.js" --include="*.ts"; then
-            echo "::error::Hardcoded localhost found! Use BACKEND_HOST from constants.js"
-            exit 1
+
+          # Check for localhost:8082 in source (OK in backend config, not in frontend/android)
+          if grep -rn "localhost:8082\|127\.0\.0\.1:8082" \
+            personal-health-android/src/ personal-health-frontend/views/ \
+            --include="*.js" --include="*.ejs" --include="*.jsx"; then
+            echo "::error::Hardcoded localhost:8082 found! Use relative /api paths or BACKEND_HOST"
+            FOUND=1
           fi
+
+          if [ $FOUND -eq 1 ]; then exit 1; fi
           echo "No hardcoded IPs found"
 
-  check-structure:
-    name: Validate Project Structure
+  # ─── Branding Check ─────────────────────────────────────────────────────
+  no-old-branding:
+    name: "Guard: no ActiveBharat branding"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check required files exist
+      - name: Scan for ActiveBharat references
         run: |
-          echo "Checking backend structure..."
-          test -f personal-health-backend/api_server.py || (echo "::error::api_server.py missing" && exit 1)
-          test -f personal-health-backend/database.py || (echo "::error::database.py missing" && exit 1)
-          test -d personal-health-backend/routes || (echo "::error::routes/ missing" && exit 1)
-          test -d personal-health-backend/services || (echo "::error::services/ missing" && exit 1)
-          echo "Checking android structure..."
-          test -f personal-health-android/App.js || (echo "::error::App.js missing" && exit 1)
-          test -d personal-health-android/src/screens/core || (echo "::error::screens/core/ missing" && exit 1)
-          test -d personal-health-android/src/screens/fitness || (echo "::error::screens/fitness/ missing" && exit 1)
-          test -d personal-health-android/src/screens/wellness || (echo "::error::screens/wellness/ missing" && exit 1)
-          echo "All structure checks passed"
-
-      - name: Check no ActiveBharat branding
-        run: |
-          if grep -ri "activebharat" personal-health-backend/ personal-health-frontend/ personal-health-android/src/ --include="*.py" --include="*.js" --include="*.ejs" -l; then
-            echo "::error::ActiveBharat branding found! Use 'Personal Health' instead"
+          echo "Checking for old branding..."
+          if grep -ri "activebharat\|active.bharat\|eklavya" \
+            personal-health-backend/routes/ \
+            personal-health-backend/services/ \
+            personal-health-backend/api_server.py \
+            personal-health-backend/database.py \
+            personal-health-android/src/ \
+            personal-health-frontend/server.js \
+            personal-health-frontend/views/ \
+            --include="*.py" --include="*.js" --include="*.ejs" --include="*.jsx" -l 2>/dev/null; then
+            echo "::error::Old branding found! Use 'Personal Health' everywhere"
             exit 1
           fi
-          echo "No ActiveBharat branding found"
+          echo "No old branding found"
+
+  # ─── Structure Validation ───────────────────────────────────────────────
+  structure:
+    name: "Guard: project structure"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate backend structure
+        run: |
+          echo "Checking backend..."
+          for f in api_server.py database.py routes/health.py routes/fitness.py routes/athletes.py routes/social.py; do
+            test -f "personal-health-backend/$f" || (echo "::error::Missing: personal-health-backend/$f" && exit 1)
+          done
+          echo "Backend structure OK"
+
+      - name: Validate android structure
+        run: |
+          echo "Checking android screen folders..."
+          for d in core fitness social wellness; do
+            test -d "personal-health-android/src/screens/$d" || (echo "::error::Missing: screens/$d/" && exit 1)
+          done
+          echo "Android structure OK"
+
+      - name: Validate frontend structure
+        run: |
+          echo "Checking frontend..."
+          test -f "personal-health-frontend/server.js" || (echo "::error::Missing: server.js" && exit 1)
+          test -d "personal-health-frontend/views" || (echo "::error::Missing: views/" && exit 1)
+          echo "Frontend structure OK"
+
+      - name: Check _save_db usage (no raw json.dump in routes)
+        run: |
+          echo "Checking for raw json.dump in route files..."
+          if grep -n "json\.dump\b" personal-health-backend/routes/*.py 2>/dev/null | grep -v "# OK" | grep -v "_save"; then
+            echo "::error::Raw json.dump found in routes! Use _save_db() or _save_json() from database.py"
+            exit 1
+          fi
+          echo "No raw json.dump in routes"
+
+  # ─── Backend Syntax Check ───────────────────────────────────────────────
+  python-syntax:
+    name: "Python: syntax check"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile all Python files
+        run: python -m py_compile personal-health-backend/api_server.py && python -m py_compile personal-health-backend/database.py && echo "Syntax OK"
+      - name: Compile route files
+        run: |
+          for f in personal-health-backend/routes/*.py; do
+            python -m py_compile "$f" || exit 1
+          done
+          echo "All routes compile OK"
+
+  # ─── Final Gate ──────────────────────────────────────────────────────────
+  ci-pass:
+    name: "All checks passed"
+    needs: [ruff, biome, no-hardcoded-ips, no-old-branding, structure, python-syntax]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All CI checks passed. Safe to merge."
