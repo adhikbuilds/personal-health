@@ -16,7 +16,7 @@ The **Personal Fitness** domain is the core — pose analysis, form scoring, hea
 
 This sprint is about making it **production-ready** — not adding new features, but fixing what's broken, removing what's wrong, and hardening what's fragile.
 
----
+---c
 
 ## Problem Statement
 

@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FormIQ — Funding Pitch Deck</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --bg-deep: #0a0e1a;
+    --bg-card: #111827;
+    --bg-elevated: #1a2235;
+    --accent: #06b6d4;
+    --accent-glow: rgba(6,182,212,0.18);
+    --accent-soft: rgba(6,182,212,0.08);
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #475569;
+    --border: rgba(6,182,212,0.15);
+    --border-soft: rgba(255,255,255,0.06);
+    --green: #10b981;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --purple: #8b5cf6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 40px;
+    background: rgba(10,14,26,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .nav-logo {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--text-secondary); font-weight: 400; }
+  .nav-dots {
+    display: flex;
+    gap: 8px;
+  }
+  .nav-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+  }
+  .nav-dot.active { background: var(--accent); transform: scale(1.3); }
+  .slide-counter {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── SLIDES ── */
+  .slide {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(6,182,212,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .slide-number {
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0.7;
+  }
+
+  /* ── SLIDE 1: HERO ── */
+  #slide-1 {
+    background: var(--bg-deep);
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-soft);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+  .hero-title {
+    font-size: clamp(56px, 8vw, 96px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -3px;
+    margin-bottom: 8px;
+  }
+  .hero-title .accent { color: var(--accent); }
+  .hero-subtitle-large {
+    font-size: clamp(18px, 2.5vw, 28px);
+    color: var(--text-secondary);
+    font-weight: 300;
+    letter-spacing: -0.5px;
+    margin-bottom: 48px;
+    max-width: 600px;
+    line-height: 1.4;
+  }
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 60px;
+  }
+  .tag {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+  .hero-ask {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .ask-amount {
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: -2px;
+  }
+  .ask-label {
+    font-size: 16px;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  .hero-visual {
+    position: absolute;
+    right: 80px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 340px;
+  }
+  .phone-mockup {
+    width: 200px;
+    height: 400px;
+    background: var(--bg-card);
+    border-radius: 32px;
+    border: 2px solid var(--border);
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(6,182,212,0.1);
+  }
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(160deg, #0a0e1a 0%, #111827 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px;
+    gap: 12px;
+  }
+  .phone-header {
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .score-ring {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .score-ring svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    transform: rotate(-90deg);
+  }
+  .score-ring circle {
+    fill: none;
+    stroke-width: 6;
+    stroke-linecap: round;
+  }
+  .score-ring .bg { stroke: rgba(255,255,255,0.06); }
+  .score-ring .fill {
+    stroke: var(--accent);
+    stroke-dasharray: 282;
+    stroke-dashoffset: 56;
+    filter: drop-shadow(0 0 6px var(--accent));
+  }
+  .score-inner {
+    z-index: 1;
+    text-align: center;
+  }
+  .score-val {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--text-primary);
+    line-height: 1;
+  }
+  .score-lbl {
+    font-size: 9px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .metric-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+  }
+  .metric-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.04);
+    border-radius: 6px;
+    padding: 6px 10px;
+  }
+  .metric-name { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .metric-val { font-size: 10px; font-weight: 700; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+  .bpm-badge {
+    background: rgba(239,68,68,0.12);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 10px;
+    color: #ef4444;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .bpm-badge::before {
+    content: '♥';
+    animation: heartbeat 1s ease-in-out infinite;
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+  }
+
+  /* ── SECTION TITLES ── */
+  .section-title {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+  .section-title .accent { color: var(--accent); }
+  .section-desc {
+    font-size: 18px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 56px;
+  }
+
+  /* ── CARDS ── */
+  .card-grid {
+    display: grid;
+    gap: 20px;
+  }
+  .card-grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .card-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .card:hover {
+    border-color: var(--border);
+    transform: translateY(-2px);
+  }
+  .card.accent-card {
+    border-color: var(--border);
+    background: var(--accent-soft);
+  }
+  .card-icon {
+    width: 44px; height: 44px;
+    background: var(--accent-soft);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .card-body {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+  .card-stat {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: -1px;
+    margin-bottom: 4px;
+  }
+  .card-stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  /* ── PROBLEM SLIDE ── */
+  .problem-quote {
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+    max-width: 780px;
+    border-left: 3px solid var(--accent);
+    padding-left: 28px;
+    margin-bottom: 48px;
+  }
+  .problem-quote em {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  /* ── FEATURES SLIDE ── */
+  .feature-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    transition: all 0.3s;
+  }
+  .feature-item:hover {
+    border-color: var(--border);
+    background: var(--bg-elevated);
+  }
+  .feature-icon {
+    width: 40px; height: 40px;
+    min-width: 40px;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .feature-text-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .feature-text-body {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .badge-live { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+  .badge-wip { background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
+  .badge-planned { background: rgba(139,92,246,0.15); color: var(--purple); border: 1px solid rgba(139,92,246,0.3); }
+
+  /* ── TECH ARCHITECTURE ── */
+  .arch-layer {
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+  }
+  .arch-layer.highlight { border-color: var(--border); background: var(--accent-soft); }
+  .arch-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+    font-weight: 700;
+    min-width: 100px;
+  }
+  .arch-tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tech-pill {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-soft);
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .arch-arrow {
+    display: flex;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 18px;
+    padding: 4px 0;
+  }
+
+  /* ── BUDGET SLIDE ── */
+  .budget-total {
+    font-size: clamp(48px, 7vw, 80px);
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: -3px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .budget-total-label {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+  }
+  .budget-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    margin-bottom: 12px;
+    transition: all 0.3s;
+  }
+  .budget-item:hover { border-color: var(--border); }
+  .budget-bar-wrap {
+    flex: 1;
+  }
+  .budget-bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .budget-bar-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .budget-bar-subtitle {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 1px;
+  }
+  .budget-amount {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+  }
+  .budget-bar-track {
+    height: 5px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .budget-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), rgba(6,182,212,0.6));
+    border-radius: 100px;
+  }
+  .budget-icon-circle {
+    width: 48px; height: 48px;
+    min-width: 48px;
+    border-radius: 12px;
+    background: var(--accent-soft);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+
+  /* ── PRE-APPROVED ── */
+  .approval-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+  }
+  .approval-check {
+    width: 28px; height: 28px;
+    min-width: 28px;
+    border-radius: 50%;
+    background: rgba(16,185,129,0.12);
+    border: 1.5px solid rgba(16,185,129,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--green);
+    margin-top: 2px;
+  }
+  .approval-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .approval-body {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  /* ── ROADMAP ── */
+  .milestone {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    position: relative;
+  }
+  .milestone-line-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 4px;
+  }
+  .milestone-dot {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 2px solid var(--text-muted);
+    flex-shrink: 0;
+  }
+  .milestone-dot.done { border-color: var(--green); background: rgba(16,185,129,0.15); }
+  .milestone-dot.active { border-color: var(--accent); background: var(--accent-glow); box-shadow: 0 0 12px var(--accent); }
+  .milestone-dot.upcoming { border-color: var(--text-muted); }
+  .milestone-connector {
+    width: 2px;
+    flex: 1;
+    background: var(--border-soft);
+    margin-top: 4px;
+  }
+  .milestone-content {
+    flex: 1;
+    padding-bottom: 28px;
+  }
+  .milestone-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .milestone-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .milestone-tag {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* ── TEAM / MARKET ── */
+  .market-stat {
+    text-align: center;
+    padding: 32px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+  }
+  .market-val {
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .market-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  /* ── CTA SLIDE ── */
+  #slide-cta {
+    background: var(--bg-deep);
+    align-items: center;
+    text-align: center;
+  }
+  .cta-title {
+    font-size: clamp(48px, 7vw, 80px);
+    font-weight: 900;
+    letter-spacing: -3px;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .cta-sub {
+    font-size: 20px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    max-width: 500px;
+    line-height: 1.5;
+    margin-bottom: 48px;
+  }
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent);
+    color: var(--bg-deep);
+    font-size: 16px;
+    font-weight: 700;
+    padding: 16px 36px;
+    border-radius: 12px;
+    text-decoration: none;
+    letter-spacing: -0.3px;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: none;
+  }
+  .cta-button:hover {
+    background: #22d3ee;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(6,182,212,0.35);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: var(--border-soft);
+    margin: 40px 0;
+  }
+
+  /* ── PRINT / SCROLL NAV ── */
+  .scroll-nav {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 200;
+    background: rgba(17,24,39,0.8);
+    backdrop-filter: blur(12px);
+    padding: 10px 16px;
+    border-radius: 100px;
+    border: 1px solid var(--border-soft);
+  }
+  .scroll-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .scroll-btn:hover { color: var(--accent); background: var(--accent-soft); }
+
+  /* ── HELPERS ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .flex-col { display: flex; flex-direction: column; gap: 12px; }
+  .mb-8 { margin-bottom: 8px; }
+  .mb-16 { margin-bottom: 16px; }
+  .mb-24 { margin-bottom: 24px; }
+  .mb-32 { margin-bottom: 32px; }
+  .text-accent { color: var(--accent); }
+  .text-muted { color: var(--text-muted); }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* subtle grid bg */
+  .grid-bg {
+    background-image: linear-gradient(var(--border-soft) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* animated gradient accent line at top of some slides */
+  .accent-line {
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    opacity: 0.5;
+  }
+
+  @media (max-width: 900px) {
+    .slide { padding: 80px 24px 48px; }
+    .two-col, .card-grid-2, .card-grid-3, .card-grid-4 { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    nav { padding: 14px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Form<span>IQ</span></div>
+  <div class="nav-dots" id="navDots"></div>
+  <div class="slide-counter" id="slideCounter">01 / 11</div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 1 — HERO
+══════════════════════════════════════════ -->
+<section class="slide" id="slide-1">
+  <div style="max-width:700px;">
+    <div class="slide-number">01 — Executive Summary</div>
+    <div class="hero-eyebrow">Seed Funding Round · ₹5,00,000</div>
+    <h1 class="hero-title">Form<span class="accent">IQ</span></h1>
+    <p class="hero-subtitle-large">
+      The AI biomechanics coach that lives inside your phone — grading your form in real-time, tracking your heart rate, and telling you exactly what to fix.
+    </p>
+    <div class="hero-tags">
+      <div class="tag">Sports Tech · AI/ML</div>
+      <div class="tag">React Native · FastAPI</div>
+      <div class="tag">MediaPipe · TensorFlow</div>
+      <div class="tag">India Market</div>
+    </div>
+    <div class="hero-ask">
+      <div class="ask-amount">₹5,00,000</div>
+      <div class="ask-label">Total Ask &nbsp;·&nbsp; Pre-approved deployment</div>
+    </div>
+  </div>
+
+  <!-- Phone mockup -->
+  <div class="hero-visual">
+    <div class="phone-mockup">
+      <div class="phone-screen">
+        <div class="phone-header">FORM IQ · LIVE</div>
+        <div class="score-ring">
+          <svg viewBox="0 0 100 100">
+            <circle class="bg" cx="50" cy="50" r="44"/>
+            <circle class="fill" cx="50" cy="50" r="44"/>
+          </svg>
+          <div class="score-inner">
+            <div class="score-val">82</div>
+            <div class="score-lbl">FORM</div>
+          </div>
+        </div>
+        <div class="bpm-badge">138 BPM</div>
+        <div class="metric-row">
+          <div class="metric-item">
+            <span class="metric-name">Knee Angle L</span>
+            <span class="metric-val">94.2°</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-name">Hip Torsion</span>
+            <span class="metric-val">0.031</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-name">Jerk Index</span>
+            <span class="metric-val">1.18</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-name">Symmetry</span>
+            <span class="metric-val">96.4%</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-name">Phase</span>
+            <span class="metric-val">TAKEOFF</span>
+          </div>
+        </div>
+        <div style="font-size:9px;color:#06b6d4;text-align:center;padding-top:4px;opacity:0.7;">↑ Fix trunk lean · +8 pts</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:16px;">
+      <div style="font-size:11px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;">60 FPS · Phase 2 Edge AI</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 2 — PROBLEM
+══════════════════════════════════════════ -->
+<section class="slide grid-bg" id="slide-2">
+  <div class="accent-line"></div>
+  <div class="slide-number">02 — The Problem</div>
+  <div class="problem-quote">
+    Athletes who train without a coach have <em>no way to know</em> if their form is improving or deteriorating — yet the tools that solve this are inaccessible to <em>99% of athletes</em> by cost and geography.
+  </div>
+
+  <div class="card-grid card-grid-3">
+    <div class="card">
+      <div class="card-stat">₹2–5L</div>
+      <div class="card-stat-label">Annual cost of a personal coach</div>
+      <div class="divider" style="margin:16px 0 12px;"></div>
+      <div class="card-body">Out of reach for 99% of aspiring athletes across India, especially in Tier 2/3 cities where infrastructure is absent.</div>
+    </div>
+    <div class="card">
+      <div class="card-stat">70%</div>
+      <div class="card-stat-label">Sports injuries from poor form</div>
+      <div class="divider" style="margin:16px 0 12px;"></div>
+      <div class="card-body">Most overuse and acute injuries are directly linked to technique errors that go undetected without real-time feedback.</div>
+    </div>
+    <div class="card">
+      <div class="card-stat">500M+</div>
+      <div class="card-stat-label">Amateur athletes in India</div>
+      <div class="divider" style="margin:16px 0 12px;"></div>
+      <div class="card-body">A massive underserved market training without structured feedback — an opportunity no existing product addresses at scale.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 3 — SOLUTION
+══════════════════════════════════════════ -->
+<section class="slide" id="slide-3">
+  <div class="slide-number">03 — The Solution</div>
+  <div class="two-col">
+    <div>
+      <h2 class="section-title">Your phone IS <span class="accent">the coach</span></h2>
+      <p class="section-desc" style="margin-bottom:28px;">
+        FormIQ uses the phone camera as a biomechanics sensor — extracting 33 3D body landmarks at 60 FPS, grading technique against sport-science benchmarks in real-time, and giving athletes the same feedback a ₹5L/year coach would.
+      </p>
+      <div class="flex-col">
+        <div class="feature-item">
+          <div class="feature-icon">🤸</div>
+          <div>
+            <div class="feature-text-title">Real-Time Form Scoring &nbsp;<span class="badge badge-live">Live</span></div>
+            <div class="feature-text-body">0–100 biomechanical score per session frame. Powered by MediaPipe + custom MLP model trained on sport-science literature.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">❤️</div>
+          <div>
+            <div class="feature-text-title">Heart Rate via rPPG &nbsp;<span class="badge badge-live">Live</span></div>
+            <div class="feature-text-body">Camera-based remote photoplethysmography extracts heart rate from facial micro-colour changes — no wearable needed.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🧬</div>
+          <div>
+            <div class="feature-text-title">Phase-Space Kinematics &nbsp;<span class="badge badge-live">Live</span></div>
+            <div class="feature-text-body">Mahalanobis Distance, Quaternion Torsion, Dimensionless Jerk — the same metrics used in Olympic biomechanics labs.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-col">
+      <div class="feature-item">
+        <div class="feature-icon">📊</div>
+        <div>
+          <div class="feature-text-title">Coach Web Dashboard &nbsp;<span class="badge badge-live">Live</span></div>
+          <div class="feature-text-body">Remote visibility — coaches see live session metrics, leaderboard, athlete progress, without being physically present.</div>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🏆</div>
+        <div>
+          <div class="feature-text-title">Athlete Leaderboard &nbsp;<span class="badge badge-live">Live</span></div>
+          <div class="feature-text-body">Global rankings by form score, jump height, symmetry index. Social motivation layer that drives engagement and retention.</div>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🤖</div>
+        <div>
+          <div class="feature-text-title">AI Coaching Notes &nbsp;<span class="badge badge-planned">Planned</span></div>
+          <div class="feature-text-body">LLM-generated session summaries with specific technique corrections ("Fix trunk lean — costs you 8 form points").</div>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔄</div>
+        <div>
+          <div class="feature-text-title">Adaptive Model Retraining &nbsp;<span class="badge badge-planned">Planned</span></div>
+          <div class="feature-text-body">Model retrains on real session data every 500 sessions — beats synthetic baseline and improves with every athlete.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 4 — TECHNOLOGY
+══════════════════════════════════════════ -->
+<section class="slide grid-bg" id="slide-4">
+  <div class="accent-line"></div>
+  <div class="slide-number">04 — Technology Stack</div>
+  <div class="two-col" style="align-items:center;">
+    <div>
+      <h2 class="section-title" style="margin-bottom:32px;">Built on <span class="accent">real</span> ML infrastructure</h2>
+      <div class="flex-col" style="gap:4px;">
+        <div class="arch-layer highlight">
+          <div class="arch-label">Android</div>
+          <div class="arch-tech-list">
+            <span class="tech-pill">React Native</span>
+            <span class="tech-pill">Expo SDK 54</span>
+            <span class="tech-pill">Vision Camera</span>
+            <span class="tech-pill">C++ JNI Bridge</span>
+            <span class="tech-pill">60 FPS WS</span>
+          </div>
+        </div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-layer">
+          <div class="arch-label">Frontend</div>
+          <div class="arch-tech-list">
+            <span class="tech-pill">Node.js</span>
+            <span class="tech-pill">Express</span>
+            <span class="tech-pill">EJS</span>
+            <span class="tech-pill">WS Proxy</span>
+          </div>
+        </div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-layer highlight">
+          <div class="arch-label">Backend API</div>
+          <div class="arch-tech-list">
+            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">MediaPipe</span>
+            <span class="tech-pill">TensorFlow</span>
+            <span class="tech-pill">SciPy</span>
+            <span class="tech-pill">rPPG</span>
+          </div>
+        </div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-layer">
+          <div class="arch-label">ML Pipeline</div>
+          <div class="arch-tech-list">
+            <span class="tech-pill">generate_dataset.py</span>
+            <span class="tech-pill">model_trainer.py</span>
+            <span class="tech-pill">.tflite export</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-col">
+      <div class="card accent-card">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Phase 2 Edge AI — 60 FPS</div>
+        <div class="card-body">Native C++ MediaPipe runs GPU inference directly on-device. Streams 528-byte float arrays over WebSocket — no JPEG transfer. Benchmarked vs. force plates using MMPose CMU data.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📐</div>
+        <div class="card-title">Sport-Science Benchmarks</div>
+        <div class="card-body">Training dataset calibrated against SportsPose (CVPR 2023, 176K poses), AthletePose3D (1.3M frames), and published kinematic references for 5 sports: vertical jump, snatch, sprint, javelin, cricket.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧠</div>
+        <div class="card-title">HMM Phase State Machine</div>
+        <div class="card-body">Hidden Markov Model segments each movement into phases (setup → descent → takeoff → flight → landing) enabling phase-specific quality scoring.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 5 — WHAT WE'RE BUILDING
+══════════════════════════════════════════ -->
+<section class="slide" id="slide-5">
+  <div class="slide-number">05 — What This Funding Enables</div>
+  <h2 class="section-title">From working demo to <span class="accent">first revenue</span></h2>
+  <p class="section-desc">These funds accelerate three critical capabilities: better ML model, growth infrastructure, and AI-powered coaching intelligence.</p>
+
+  <div class="card-grid card-grid-3">
+    <div class="card">
+      <div class="card-icon">🧪</div>
+      <div class="card-title">Model Training at Scale</div>
+      <div class="card-body" style="margin-bottom:16px;">
+        Use Claude Max + AWS to scrape and structure real biomechanics data from academic sources, run hyperparameter sweeps, retrain the .tflite model beyond the synthetic baseline.
+      </div>
+      <div class="badge badge-planned" style="font-size:11px;padding:4px 10px;">AWS + Claude Max</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📣</div>
+      <div class="card-title">First Athlete Cohort — Meta Ads</div>
+      <div class="card-body" style="margin-bottom:16px;">
+        Targeted Meta campaigns to recruit 15+ athletes across 3 sports for the "first huddle" milestone (150+ sessions). Data that trains the first real model.
+      </div>
+      <div class="badge badge-wip" style="font-size:11px;padding:4px 10px;">Growth · Meta Ads</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🛠️</div>
+      <div class="card-title">Intern Development Sprint</div>
+      <div class="card-body" style="margin-bottom:16px;">
+        2 interns with Claude Pro access to build: AI coaching note generator, progress trend analytics screen, subscription paywall, and onboarding flow.
+      </div>
+      <div class="badge badge-wip" style="font-size:11px;padding:4px 10px;">Claude Pro × 2</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 6 — BUDGET BREAKDOWN
+══════════════════════════════════════════ -->
+<section class="slide grid-bg" id="slide-6">
+  <div class="accent-line"></div>
+  <div class="slide-number">06 — Budget Breakdown</div>
+  <div class="two-col">
+    <div>
+      <div class="budget-total">₹5,00,000</div>
+      <div class="budget-total-label">Total funding request · 6-month deployment</div>
+
+      <div class="budget-item">
+        <div class="budget-icon-circle">☁️</div>
+        <div class="budget-bar-wrap">
+          <div class="budget-bar-header">
+            <div>
+              <div class="budget-bar-title">AWS Cloud Credits</div>
+              <div class="budget-bar-subtitle">EC2 (GPU inference), S3 (session data), SageMaker (model training), Lambda (async queue)</div>
+            </div>
+            <div class="budget-amount">₹84,000</div>
+          </div>
+          <div class="budget-bar-track"><div class="budget-bar-fill" style="width:16.8%"></div></div>
+        </div>
+      </div>
+
+      <div class="budget-item">
+        <div class="budget-icon-circle">🤖</div>
+        <div class="budget-bar-wrap">
+          <div class="budget-bar-header">
+            <div>
+              <div class="budget-bar-title">Claude Max Plan · 1 seat · 6 months</div>
+              <div class="budget-bar-subtitle">Model training intelligence, data scraping pipelines, biomechanics analytics, ML architecture design</div>
+            </div>
+            <div class="budget-amount">₹1,00,800</div>
+          </div>
+          <div class="budget-bar-track"><div class="budget-bar-fill" style="width:20.2%"></div></div>
+        </div>
+      </div>
+
+      <div class="budget-item">
+        <div class="budget-icon-circle">👨‍💻</div>
+        <div class="budget-bar-wrap">
+          <div class="budget-bar-header">
+            <div>
+              <div class="budget-bar-title">Claude Pro Plans · 2 intern seats · 6 months</div>
+              <div class="budget-bar-subtitle">Active development assistance for Android + backend features, code review, test generation</div>
+            </div>
+            <div class="budget-amount">₹20,160</div>
+          </div>
+          <div class="budget-bar-track"><div class="budget-bar-fill" style="width:4%"></div></div>
+        </div>
+      </div>
+
+      <div class="budget-item">
+        <div class="budget-icon-circle">📣</div>
+        <div class="budget-bar-wrap">
+          <div class="budget-bar-header">
+            <div>
+              <div class="budget-bar-title">Meta Ads · Athlete Acquisition</div>
+              <div class="budget-bar-subtitle">Instagram + Facebook campaigns targeting 17–28 club athletes across Delhi, Mumbai, Bangalore, Hyderabad</div>
+            </div>
+            <div class="budget-amount">₹1,50,000</div>
+          </div>
+          <div class="budget-bar-track"><div class="budget-bar-fill" style="width:30%"></div></div>
+        </div>
+      </div>
+
+      <div class="budget-item">
+        <div class="budget-icon-circle">🤝</div>
+        <div class="budget-bar-wrap">
+          <div class="budget-bar-header">
+            <div>
+              <div class="budget-bar-title">Sports Academies · Collaboration</div>
+              <div class="budget-bar-subtitle">Partnerships with local academies (₹5K–10K/academy MoU), ambassador athletes, coaches for feedback loops</div>
+            </div>
+            <div class="budget-amount">₹75,000</div>
+          </div>
+          <div class="budget-bar-track"><div class="budget-bar-fill" style="width:15%"></div></div>
+        </div>
+      </div>
+
+      <div class="budget-item">
+        <div class="budget-icon-circle">🔧</div>
+        <div class="budget-bar-wrap">
+          <div class="budget-bar-header">
+            <div>
+              <div class="budget-bar-title">Infrastructure & Tooling</div>
+              <div class="budget-bar-subtitle">Domain, app store fees, third-party APIs (Razorpay subscriptions, push notifications), CI/CD pipelines</div>
+            </div>
+            <div class="budget-amount">₹50,000</div>
+          </div>
+          <div class="budget-bar-track"><div class="budget-bar-fill" style="width:10%"></div></div>
+        </div>
+      </div>
+
+      <div class="budget-item">
+        <div class="budget-icon-circle">🛡️</div>
+        <div class="budget-bar-wrap">
+          <div class="budget-bar-header">
+            <div>
+              <div class="budget-bar-title">Operations & Contingency</div>
+              <div class="budget-bar-subtitle">Event registrations, demo day costs, buffer for unexpected infra scale, travel to academy visits</div>
+            </div>
+            <div class="budget-amount">₹20,040</div>
+          </div>
+          <div class="budget-bar-track"><div class="budget-bar-fill" style="width:4%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-title" style="margin-bottom:20px;">Allocation by Category</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:12px;height:12px;border-radius:3px;background:var(--accent);"></div>
+              <span style="font-size:13px;color:var(--text-secondary);">Growth & Marketing</span>
+            </div>
+            <span style="font-size:14px;font-weight:700;">₹1,50,000 &nbsp;<span style="color:var(--text-muted);font-weight:400;font-size:12px;">30%</span></span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:12px;height:12px;border-radius:3px;background:#8b5cf6;"></div>
+              <span style="font-size:13px;color:var(--text-secondary);">AI / Claude Plans</span>
+            </div>
+            <span style="font-size:14px;font-weight:700;">₹1,20,960 &nbsp;<span style="color:var(--text-muted);font-weight:400;font-size:12px;">24.2%</span></span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:12px;height:12px;border-radius:3px;background:#06b6d4;opacity:0.6;"></div>
+              <span style="font-size:13px;color:var(--text-secondary);">AWS Cloud Credits</span>
+            </div>
+            <span style="font-size:14px;font-weight:700;">₹84,000 &nbsp;<span style="color:var(--text-muted);font-weight:400;font-size:12px;">16.8%</span></span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:12px;height:12px;border-radius:3px;background:#10b981;"></div>
+              <span style="font-size:13px;color:var(--text-secondary);">Academy Partnerships</span>
+            </div>
+            <span style="font-size:14px;font-weight:700;">₹75,000 &nbsp;<span style="color:var(--text-muted);font-weight:400;font-size:12px;">15%</span></span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:12px;height:12px;border-radius:3px;background:#f59e0b;"></div>
+              <span style="font-size:13px;color:var(--text-secondary);">Infrastructure & Tooling</span>
+            </div>
+            <span style="font-size:14px;font-weight:700;">₹50,000 &nbsp;<span style="color:var(--text-muted);font-weight:400;font-size:12px;">10%</span></span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:12px;height:12px;border-radius:3px;background:#475569;"></div>
+              <span style="font-size:13px;color:var(--text-secondary);">Operations & Buffer</span>
+            </div>
+            <span style="font-size:14px;font-weight:700;">₹20,040 &nbsp;<span style="color:var(--text-muted);font-weight:400;font-size:12px;">4%</span></span>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;">
+          <span style="font-size:14px;font-weight:700;color:var(--text-primary);">TOTAL</span>
+          <span style="font-size:22px;font-weight:900;color:var(--accent);">₹5,00,000</span>
+        </div>
+      </div>
+
+      <div class="card accent-card">
+        <div style="font-size:12px;color:var(--accent);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Exchange Rate Used</div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">
+          1 USD = ₹84 (as of March 2026)<br/>
+          AWS $1,000 = <strong style="color:var(--text-primary);">₹84,000</strong><br/>
+          Claude Max $200/mo × 6 = <strong style="color:var(--text-primary);">₹1,00,800</strong><br/>
+          Claude Pro $20/mo × 2 × 6 = <strong style="color:var(--text-primary);">₹20,160</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 7 — PRE-APPROVED USAGE
+══════════════════════════════════════════ -->
+<section class="slide" id="slide-7">
+  <div class="slide-number">07 — Pre-Approved Spend Framework</div>
+  <h2 class="section-title">No fund will be spent <span class="accent">without prior approval</span></h2>
+  <p class="section-desc">Every rupee is tied to a milestone deliverable. We present spend proposals to approvers before activation — no discretionary usage.</p>
+
+  <div class="card-grid card-grid-2" style="gap:16px;">
+    <div class="approval-item">
+      <div class="approval-check">✓</div>
+      <div>
+        <div class="approval-title">AWS Credits — Milestone-gated</div>
+        <div class="approval-body">Credits are activated in tranches: Tranche 1 (₹30K) after first 50 sessions logged. Tranche 2 (₹30K) after model retrain completes. Tranche 3 (₹24K) post-subscription launch. Detailed cost dashboard shared monthly.</div>
+      </div>
+    </div>
+    <div class="approval-item">
+      <div class="approval-check">✓</div>
+      <div>
+        <div class="approval-title">Claude Max — Pre-approved tasks only</div>
+        <div class="approval-body">Each usage session maps to a logged task: data scraping run, model training sweep, pipeline design. A weekly usage report will be presented to approvers with input/output docs for every significant task.</div>
+      </div>
+    </div>
+    <div class="approval-item">
+      <div class="approval-check">✓</div>
+      <div>
+        <div class="approval-title">Meta Ads — Managed via Business Manager</div>
+        <div class="approval-body">Campaigns created inside Meta Business Manager with a shared read-only approver login. Weekly spend cap of ₹12,500. All creatives reviewed and approved before going live. ROAS targets set upfront (cost-per-install &lt; ₹150).</div>
+      </div>
+    </div>
+    <div class="approval-item">
+      <div class="approval-check">✓</div>
+      <div>
+        <div class="approval-title">Claude Pro Interns — Logged deliverables</div>
+        <div class="approval-body">Each intern's Claude Pro access is tied to a sprint board. Weekly check-in: features shipped, PRs merged, tasks completed. If deliverables fall behind, the plan for the following month is revised jointly before renewal.</div>
+      </div>
+    </div>
+    <div class="approval-item">
+      <div class="approval-check">✓</div>
+      <div>
+        <div class="approval-title">Academy Partnerships — MoU first</div>
+        <div class="approval-body">No payment to any academy without a signed MoU defining: number of athlete sessions, data consent forms, feedback obligations. Template MoU reviewed and approved before any outreach begins.</div>
+      </div>
+    </div>
+    <div class="approval-item">
+      <div class="approval-check">✓</div>
+      <div>
+        <div class="approval-title">Full Monthly P&L Statement</div>
+        <div class="approval-body">A detailed monthly spend report — categorised by AWS service, Claude usage, ad spend, partnerships — will be presented to all approvers within 5 days of month-end. Any unspent budget rolls over with explicit documentation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 8 — ROADMAP
+══════════════════════════════════════════ -->
+<section class="slide grid-bg" id="slide-8">
+  <div class="accent-line"></div>
+  <div class="slide-number">08 — Milestones & Roadmap</div>
+  <div class="two-col">
+    <div>
+      <h2 class="section-title" style="margin-bottom:32px;">5 milestones to <span class="accent">first revenue</span></h2>
+      <div class="flex-col">
+        <div class="milestone">
+          <div class="milestone-line-wrap">
+            <div class="milestone-dot done"></div>
+            <div class="milestone-connector"></div>
+          </div>
+          <div class="milestone-content">
+            <div class="milestone-title">M1 — Working Demo</div>
+            <div class="milestone-desc">Phone → form score in &lt;60s. Phase 2 Edge AI at 60 FPS. rPPG heart rate. Coach dashboard live.</div>
+            <div class="milestone-tag badge badge-live">Complete</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-line-wrap">
+            <div class="milestone-dot active"></div>
+            <div class="milestone-connector"></div>
+          </div>
+          <div class="milestone-content">
+            <div class="milestone-title">M2 — First Huddle</div>
+            <div class="milestone-desc">15+ athletes onboarded, 150+ real sessions collected. Meta ads + academy partnerships activated.</div>
+            <div class="milestone-tag badge badge-wip">In Progress · April 2026</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-line-wrap">
+            <div class="milestone-dot upcoming"></div>
+            <div class="milestone-connector"></div>
+          </div>
+          <div class="milestone-content">
+            <div class="milestone-title">M3 — First Retrain</div>
+            <div class="milestone-desc">500+ real sessions. Model retrained on real data — beats synthetic baseline. Claude Max drives data pipeline.</div>
+            <div class="milestone-tag badge badge-planned">May 2026</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-line-wrap">
+            <div class="milestone-dot upcoming"></div>
+            <div class="milestone-connector"></div>
+          </div>
+          <div class="milestone-content">
+            <div class="milestone-title">M4 — First Coaching Note</div>
+            <div class="milestone-desc">LLM + session summary integration. "Fix trunk lean → +8 pts" personalised per athlete per session.</div>
+            <div class="milestone-tag badge badge-planned">June 2026</div>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-line-wrap">
+            <div class="milestone-dot upcoming"></div>
+          </div>
+          <div class="milestone-content">
+            <div class="milestone-title">M5 — First Revenue</div>
+            <div class="milestone-desc">₹199/month subscription live. Razorpay integration. Target: 50 paying athletes in month 1.</div>
+            <div class="milestone-tag badge badge-planned">Aug 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-col" style="justify-content:center;">
+      <div class="card accent-card">
+        <div class="card-icon">📐</div>
+        <div class="card-title">Why these milestones are fundable</div>
+        <div class="card-body" style="margin-bottom:0;">
+          Each milestone produces a concrete, verifiable artefact:
+          <ul style="margin-top:12px;padding-left:18px;display:flex;flex-direction:column;gap:6px;">
+            <li>M1 → Demo video + GitHub repo ✓</li>
+            <li>M2 → Session count in DB + athlete testimonials</li>
+            <li>M3 → Model accuracy report (real vs. synthetic)</li>
+            <li>M4 → Coaching note examples in app</li>
+            <li>M5 → Razorpay transaction records</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">💰</div>
+        <div class="card-title">Revenue Projection</div>
+        <div class="card-body">
+          At ₹199/mo with 50 paying users in Month 1, and 20% MoM growth:
+          <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);">Month 1</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;">₹9,950 MRR</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);">Month 3</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;">₹17,100 MRR</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);">Month 6</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;">₹35,800 MRR</span></div>
+            <div style="display:flex;justify-content:space-between;border-top:1px solid var(--border-soft);padding-top:6px;"><span style="color:var(--text-muted);">12-mo ARR</span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent);font-weight:700;">~₹3.2L</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 9 — MARKET
+══════════════════════════════════════════ -->
+<section class="slide" id="slide-9">
+  <div class="slide-number">09 — Market Opportunity</div>
+  <h2 class="section-title">India's <span class="accent">₹8,200 Cr</span> sports tech gap</h2>
+  <p class="section-desc">India has 500M+ amateur athletes, a growing national sports policy, and zero accessible AI coaching tools at scale.</p>
+
+  <div class="card-grid card-grid-4" style="margin-bottom:32px;">
+    <div class="market-stat">
+      <div class="market-val">500M+</div>
+      <div class="market-label">Amateur athletes in India training without professional coaching</div>
+    </div>
+    <div class="market-stat">
+      <div class="market-val">₹8,200Cr</div>
+      <div class="market-label">India sports tech TAM by 2027 (FICCI report)</div>
+    </div>
+    <div class="market-stat">
+      <div class="market-val">₹2–5L</div>
+      <div class="market-label">Annual personal coach cost — FormIQ replaces this at ₹2,388/yr</div>
+    </div>
+    <div class="market-stat">
+      <div class="market-val">0</div>
+      <div class="market-label">Comparable products in India using real-time AI biomechanics</div>
+    </div>
+  </div>
+
+  <div class="card-grid card-grid-3">
+    <div class="card">
+      <div class="card-icon">🎯</div>
+      <div class="card-title">Persona 1 — Club Athlete</div>
+      <div class="card-body">17–24, trains 4–5x/week, no personal coach. Motivated by leaderboard + improvement data. Shares results on Instagram. Primary paying user.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🏅</div>
+      <div class="card-title">Persona 2 — State Athlete</div>
+      <div class="card-body">20–28, has a coach but uses app for self-monitoring between sessions. Cares about precise angle data. Power user who validates the ML accuracy.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📋</div>
+      <div class="card-title">Persona 3 — Sports Coach</div>
+      <div class="card-body">28–45, manages 15–30 athletes. Wants remote visibility without being technically savvy. B2B channel — one coach onboards their full team.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 10 — TEAM & WHY US
+══════════════════════════════════════════ -->
+<section class="slide grid-bg" id="slide-10">
+  <div class="accent-line"></div>
+  <div class="slide-number">10 — Why FormIQ · Why Now</div>
+  <div class="two-col">
+    <div>
+      <h2 class="section-title" style="margin-bottom:32px;">We've already <span class="accent">built it</span></h2>
+      <p style="font-size:16px;color:var(--text-secondary);line-height:1.65;margin-bottom:32px;">
+        This isn't a concept deck. The stack is live: real-time biomechanics analysis, rPPG heart rate, web dashboard, leaderboard, and Phase 2 Edge AI at 60 FPS. We're asking for funds to <strong style="color:var(--text-primary);">scale what works</strong> — not to validate the idea.
+      </p>
+      <div class="flex-col">
+        <div class="feature-item">
+          <div class="feature-icon">✅</div>
+          <div>
+            <div class="feature-text-title">Production backend running</div>
+            <div class="feature-text-body">FastAPI + MediaPipe + rPPG + async session queue — all live and tested.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">✅</div>
+          <div>
+            <div class="feature-text-title">Android app functional (Expo + Native builds)</div>
+            <div class="feature-text-body">Both V1 HTTP and Phase 2 60fps WebSocket modes working on physical devices.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">✅</div>
+          <div>
+            <div class="feature-text-title">Dataset calibrated against 3 published benchmarks</div>
+            <div class="feature-text-body">SportsPose, AthletePose3D, MMPose CMJ — not synthetic noise, real sport-science distributions.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">✅</div>
+          <div>
+            <div class="feature-text-title">ML pipeline end-to-end</div>
+            <div class="feature-text-body">generate_dataset.py → model_trainer.py → .tflite export. Ready to retrain on real data the moment sessions arrive.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-col">
+      <div class="card accent-card">
+        <div class="card-icon">🔭</div>
+        <div class="card-title">Product Vision</div>
+        <div class="card-body">
+          FormIQ has three layers:
+          <ul style="margin-top:12px;padding-left:18px;display:flex;flex-direction:column;gap:8px;">
+            <li><strong style="color:var(--text-primary);">Data Layer</strong> — every session enriches the model. Network effects: more athletes = better model = better product.</li>
+            <li><strong style="color:var(--text-primary);">Intelligence Layer</strong> — model trained on real athletes eventually outperforms any textbook standard.</li>
+            <li><strong style="color:var(--text-primary);">Generative Layer</strong> — LLM coaching notes become fully personalised as more sessions accumulate per athlete.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌏</div>
+        <div class="card-title">Positioning</div>
+        <div class="card-body" style="font-style:italic;color:var(--text-secondary);">
+          "For athletes who train without a personal coach, FormIQ is a phone-first biomechanics platform that grades your form in real-time and tells you exactly what to fix — so every session makes you measurably better, not just tired."
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 11 — CTA
+══════════════════════════════════════════ -->
+<section class="slide" id="slide-cta">
+  <div style="text-align:center;max-width:700px;margin:0 auto;">
+    <div class="slide-number" style="text-align:center;">11 — The Ask</div>
+    <h2 class="cta-title">Fund the <span class="text-accent">future</span><br/>of athlete training</h2>
+    <p class="cta-sub">₹5,00,000 · 6 months · 5 milestones · zero discretionary spend</p>
+
+    <div class="card-grid card-grid-3" style="text-align:left;margin-bottom:40px;">
+      <div class="card" style="text-align:center;">
+        <div style="font-size:28px;margin-bottom:8px;">☁️</div>
+        <div class="card-title">₹84,000</div>
+        <div class="card-body">AWS Credits<br/><span style="color:var(--text-muted);font-size:11px;">$1,000 USD</span></div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:28px;margin-bottom:8px;">🤖</div>
+        <div class="card-title">₹1,20,960</div>
+        <div class="card-body">Claude Plans<br/><span style="color:var(--text-muted);font-size:11px;">Max + 2× Pro · 6mo</span></div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:28px;margin-bottom:8px;">📣</div>
+        <div class="card-title">₹2,95,040</div>
+        <div class="card-body">Growth + Ops<br/><span style="color:var(--text-muted);font-size:11px;">Ads, Collab, Infra</span></div>
+      </div>
+    </div>
+
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:40px;text-align:left;">
+      <div style="font-size:13px;color:var(--accent);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;">Name Suggestion</div>
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:12px;">
+        <span style="font-size:36px;font-weight:900;color:var(--text-primary);letter-spacing:-1px;">Form<span style="color:var(--accent);">IQ</span></span>
+        <span style="font-size:13px;color:var(--text-secondary);">· Form Intelligence Quotient</span>
+      </div>
+      <div style="font-size:13.5px;color:var(--text-secondary);line-height:1.6;">
+        Short, memorable, communicates AI intelligence applied to athletic form. Works as an app name, domain (formiq.in), and brand. Alternatives: <strong style="color:var(--text-primary);">KinetiQ</strong> (Kinetics + IQ) · <strong style="color:var(--text-primary);">BioCoach</strong> · <strong style="color:var(--text-primary);">AthleteIQ</strong>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <div style="background:var(--accent-soft);border:1px solid var(--border);border-radius:10px;padding:12px 24px;font-size:13px;color:var(--accent);font-weight:600;">
+        Pre-approved deployment only
+      </div>
+      <div style="background:var(--accent-soft);border:1px solid var(--border);border-radius:10px;padding:12px 24px;font-size:13px;color:var(--accent);font-weight:600;">
+        Monthly P&L reports
+      </div>
+      <div style="background:var(--accent-soft);border:1px solid var(--border);border-radius:10px;padding:12px 24px;font-size:13px;color:var(--accent);font-weight:600;">
+        Milestone-gated tranches
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCROLL NAV -->
+<div class="scroll-nav">
+  <button class="scroll-btn" onclick="scrollToPrev()">←</button>
+  <span style="font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;padding:0 8px;" id="bottomCounter">01/11</span>
+  <button class="scroll-btn" onclick="scrollToNext()">→</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const navDots = document.getElementById('navDots');
+  const slideCounter = document.getElementById('slideCounter');
+  const bottomCounter = document.getElementById('bottomCounter');
+
+  // Build nav dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => slides[i].scrollIntoView({ behavior: 'smooth' });
+    navDots.appendChild(dot);
+  });
+
+  function updateNav() {
+    const scrollY = window.scrollY;
+    let current = 0;
+    slides.forEach((slide, i) => {
+      if (scrollY >= slide.offsetTop - window.innerHeight / 2) current = i;
+    });
+    document.querySelectorAll('.nav-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+    const label = String(current + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+    slideCounter.textContent = label;
+    bottomCounter.textContent = String(current + 1).padStart(2, '0') + '/' + String(slides.length).padStart(2, '0');
+  }
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  function scrollToNext() {
+    const scrollY = window.scrollY;
+    for (let i = 0; i < slides.length; i++) {
+      if (slides[i].offsetTop > scrollY + 10) {
+        slides[i].scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+    }
+  }
+
+  function scrollToPrev() {
+    const scrollY = window.scrollY;
+    for (let i = slides.length - 1; i >= 0; i--) {
+      if (slides[i].offsetTop < scrollY - 10) {
+        slides[i].scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+    }
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') scrollToNext();
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') scrollToPrev();
+  });
+</script>
+
+</body>
+</html>
