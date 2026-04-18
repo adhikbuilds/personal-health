@@ -1,0 +1,1995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint Plan — Wellness &amp; Nutrition Module | Personal Health</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+      
+  :root {
+    --cyan: #06b6d4;
+    --cyan-light: #22d3ee;
+    --cyan-dark: #0891b2;
+    --bg-dark: #0a0e1a;
+    --bg-card: #111827;
+    --bg-card-alt: #1a2235;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --green: #10b981;
+    --yellow: #f59e0b;
+    --red: #ef4444;
+    --purple: #8b5cf6;
+    --pink: #ec4899;
+    --orange: #f97316;
+    --border: #1e293b;
+    --border-light: #334155;
+  }
+/* ─── COVER ─── */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.7;
+    font-size: 14px;
+  }
+
+  @media print {
+    body { background: #fff; color: #111; font-size: 11px; line-height: 1.5; }
+    .page-break { page-break-before: always; }
+    .no-print { display: none; }
+    .card { border: 1px solid #ddd !important; background: #fff !important; }
+    .section-header { color: #0891b2 !important; }
+    h1, h2, h3 { color: #111 !important; }
+    .tag { border: 1px solid #999 !important; }
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 32px;
+  }
+
+  /* ─── COVER ─── */
+  .cover {
+    text-align: center;
+    padding: 80px 20px 60px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+  .cover-badge {
+    display: inline-block;
+    background: rgba(6, 182, 212, 0.12);
+    color: var(--cyan);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(6, 182, 212, 0.25);
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, var(--cyan-light), var(--cyan), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .cover .subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-bottom: 32px;
+  }
+  .cover-meta {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .cover-meta span { display: flex; align-items: center; gap: 6px; }
+  .cover-meta strong { color: var(--text-secondary); }
+
+  /* ─── SECTIONS ─── */
+  .section { margin-bottom: 56px; }
+  .section-header {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 8px;
+  }
+  .section h2 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+  }
+  .section h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    margin-top: 28px;
+  }
+  .section p, .section li {
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .card-alt {
+    background: var(--bg-card-alt);
+  }
+
+  /* ─── TAGS ─── */
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 6px;
+    margin-right: 6px;
+    margin-bottom: 4px;
+  }
+  .tag-backend { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+  .tag-android { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+  .tag-frontend { background: rgba(249,115,22,0.15); color: #fb923c; border: 1px solid rgba(249,115,22,0.3); }
+  .tag-integration { background: rgba(236,72,153,0.15); color: #f472b6; border: 1px solid rgba(236,72,153,0.3); }
+  .tag-pm { background: rgba(6,182,212,0.15); color: #22d3ee; border: 1px solid rgba(6,182,212,0.3); }
+  .tag-brownie { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+  .tag-priority-high { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+  .tag-priority-med { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+  .tag-analytics { background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
+
+  /* ─── STORY CARD ─── */
+  .story-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--cyan);
+    transition: border-color 0.2s;
+  }
+  .story-card:hover { border-left-color: var(--cyan-light); }
+  .story-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .story-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+  .story-statement {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    background: rgba(6, 182, 212, 0.06);
+    border-radius: 8px;
+    border-left: 3px solid rgba(6, 182, 212, 0.3);
+    font-style: italic;
+  }
+  .ac-block {
+    margin-top: 16px;
+  }
+  .ac-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 10px;
+  }
+  .ac-item {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-secondary);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.6;
+  }
+  .ac-item:last-child { border-bottom: none; }
+  .ac-keyword { color: var(--purple); font-weight: 600; }
+  .peer-review {
+    margin-top: 16px;
+    padding: 10px 14px;
+    background: rgba(245, 158, 11, 0.08);
+    border-radius: 8px;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    font-size: 12px;
+    color: var(--yellow);
+  }
+  .peer-review strong { color: #fbbf24; }
+  .brownie-note {
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: rgba(16, 185, 129, 0.08);
+    border-radius: 8px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    font-size: 12px;
+    color: var(--green);
+  }
+  .tech-note {
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: rgba(139, 92, 246, 0.08);
+    border-radius: 8px;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    font-size: 12px;
+    color: #c4b5fd;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ─── DEVELOPER CARDS ─── */
+  .dev-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .dev-name {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .dev-role {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .dev-stories {
+    list-style: none;
+  }
+  .dev-stories li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .dev-stories li:last-child { border-bottom: none; }
+  .sp {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    background: rgba(6,182,212,0.15);
+    color: var(--cyan);
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  /* ─── TABLES ─── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+  th {
+    text-align: left;
+    padding: 10px 14px;
+    background: var(--bg-card-alt);
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border-light);
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  tr:hover td { background: rgba(6,182,212,0.03); }
+
+  /* ─── MISC ─── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 48px 0;
+  }
+  .highlight {
+    color: var(--cyan);
+    font-weight: 600;
+  }
+  ul { padding-left: 20px; }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    background: rgba(6,182,212,0.1);
+    color: var(--cyan-light);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .note-box {
+    padding: 16px 20px;
+    border-radius: 10px;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+  .note-info {
+    background: rgba(6,182,212,0.08);
+    border: 1px solid rgba(6,182,212,0.2);
+    color: var(--text-secondary);
+  }
+  .note-warn {
+    background: rgba(245,158,11,0.08);
+    border: 1px solid rgba(245,158,11,0.2);
+    color: var(--text-secondary);
+  }
+  .toc { list-style: none; padding: 0; }
+  .toc li { padding: 6px 0; }
+  .toc a { color: var(--cyan); text-decoration: none; font-weight: 500; }
+  .toc a:hover { text-decoration: underline; }
+  .persona-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 768px) { .persona-grid { grid-template-columns: 1fr; } }
+  .metric-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0; }
+  .metric-pill {
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    text-align: center;
+    min-width: 120px;
+  }
+  .metric-pill .num { font-size: 24px; font-weight: 800; color: var(--cyan); }
+  .metric-pill .label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+  .footer {
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- COVER -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-badge">Sprint Plan Document</div>
+  <h1>Wellness &amp; Nutrition Module</h1>
+  <p class="subtitle">Personal Health Platform — Sprint W&N-01</p>
+  <div class="cover-meta">
+    <span><strong>Project Lead:</strong> Adhik Agarwal</span>
+    <span><strong>Peer Reviewer:</strong> Raj Shukla</span>
+    <span><strong>Sprint Duration:</strong> 7 Apr – 13 Apr 2026</span>
+    <span><strong>Team Size:</strong> 6 Developers</span>
+    <span><strong>Date:</strong> 7 April 2026</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TABLE OF CONTENTS -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">Navigation</div>
+  <h2>Table of Contents</h2>
+  <div class="card">
+    <ol class="toc">
+      <li><a href="#intro">1. Hey Team — Context &amp; Why We're Here</a></li>
+      <li><a href="#arch">2. Architecture — Where Wellness Fits In</a></li>
+      <li><a href="#jtbd">3. Jobs-to-be-Done Analysis</a></li>
+      <li><a href="#personas">4. Proto-Personas for Wellness</a></li>
+      <li><a href="#problem">5. Problem Statement</a></li>
+      <li><a href="#devs">6. Developer Assignments &amp; Roster</a></li>
+      <li><a href="#epic1">7. Epic 1 — Nutrition Data Foundation (Backend)</a></li>
+      <li><a href="#epic2">8. Epic 2 — Wellness Scoring Engine (Backend)</a></li>
+      <li><a href="#epic3">9. Epic 3 — Nutrition Logging (Android)</a></li>
+      <li><a href="#epic4">10. Epic 4 — Wellness Dashboard (Android)</a></li>
+      <li><a href="#epic5">11. Epic 5 — Wellness Analytics (Frontend Dashboard)</a></li>
+      <li><a href="#epic6">12. Epic 6 — Integration, Seed Data &amp; QA</a></li>
+      <li><a href="#brownie">13. Brownie Features — Deeper Product Scope</a></li>
+      <li><a href="#pm">14. PM &amp; Analytics Playbook</a></li>
+      <li><a href="#uiux">15. UI/UX Design System Guidelines</a></li>
+      <li><a href="#review">16. Code Review &amp; Peer Testing Protocol</a></li>
+      <li><a href="#risks">17. Risks &amp; Dependencies</a></li>
+      <li><a href="#defs">18. Definition of Done</a></li>
+    </ol>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 1. INTRO -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="intro">
+  <div class="section-header">Section 01</div>
+  <h2>Hey Team — Context &amp; Why We're Here</h2>
+
+  <div class="card">
+    <p style="font-size: 15px; color: var(--text-primary); line-height: 1.8;">
+      Hey guys, I'm <strong>Adhik</strong> — the project lead for Personal Health. Thanks for joining this sprint.
+    </p>
+    <p style="margin-top: 12px;">
+      Quick context: we're building a <strong>phone-first sports biomechanics AI platform</strong>. Athletes train using their phone camera, we grade form in real-time, track heart rate via rPPG, and over time build a model on real session data. The codebase is already functional — we have 30 seeded athletes, 600+ sessions, working pose analysis, leaderboard, daily tracker, social feed, the whole thing.
+    </p>
+    <p style="margin-top: 12px;">
+      <strong>We have two domains:</strong>
+    </p>
+    <ul style="margin-top: 8px;">
+      <li><strong>Personal Fitness / Biomechanics</strong> — This is our core. Pose analysis, form scoring, rep counting. <span class="highlight">We're keeping this on hold for now</span> because we need more real athlete data before the next model retrain makes sense.</li>
+      <li><strong>Health &amp; Wellness</strong> — This is where we're sprinting. Nutrition tracking, enhanced wellness monitoring, sleep analysis, recovery scoring, meal logging. <span class="highlight">This is the focus of this sprint.</span></li>
+    </ul>
+    <p style="margin-top: 12px;">
+      The daily tracker already exists (<code>water</code>, <code>sleep</code>, <code>mood</code>, <code>soreness</code>) but it's bare-minimum. We need to build it out into a proper wellness system that athletes actually use daily. The nutrition side is completely greenfield — nothing exists yet.
+    </p>
+    <p style="margin-top: 16px;">
+      <strong>What I expect from each of you:</strong> Read through your assigned user stories carefully. Understand the acceptance criteria — that's your contract. Every PR goes through <strong>Raj Shukla</strong> for peer review. Don't build beyond the story scope, but do think about edge cases. If something doesn't make sense technically, flag it in standup — don't guess.
+    </p>
+  </div>
+
+  <div class="note-box note-info">
+    <strong>Domains this sprint:</strong> Fitness module is on hold (needs 500+ real sessions for meaningful retrain). Wellness &amp; Nutrition is the sprint focus. All new code follows existing patterns in <code>api_server.py</code>, <code>HomeScreen.js</code>, and <code>server.js</code>.
+  </div>
+
+  <div class="metric-row">
+    <div class="metric-pill"><div class="num">6</div><div class="label">Developers</div></div>
+    <div class="metric-pill"><div class="num">6</div><div class="label">Epics</div></div>
+    <div class="metric-pill"><div class="num">34</div><div class="label">User Stories</div></div>
+    <div class="metric-pill"><div class="num">3</div><div class="label">Weeks</div></div>
+    <div class="metric-pill"><div class="num">8</div><div class="label">Brownie Features</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 2. ARCHITECTURE -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="arch">
+  <div class="section-header">Section 02</div>
+  <h2>Architecture — Where Wellness Fits In</h2>
+
+  <h3>Current Stack</h3>
+  <table>
+    <tr><th>Layer</th><th>Tech</th><th>Port</th><th>Key File</th></tr>
+    <tr><td>Android App</td><td>React Native, Expo SDK 54</td><td>—</td><td><code>App.js</code>, <code>src/screens/*.js</code></td></tr>
+    <tr><td>Backend API</td><td>FastAPI (Python 3.9+)</td><td>8082</td><td><code>api_server.py</code> (1,180 lines)</td></tr>
+    <tr><td>Frontend</td><td>Express + EJS</td><td>8083</td><td><code>server.js</code>, <code>views/*.ejs</code></td></tr>
+    <tr><td>Database</td><td>JSON files</td><td>—</td><td><code>db/athletes.json</code>, <code>db/sessions.json</code></td></tr>
+    <tr><td>ML Pipeline</td><td>TensorFlow + MediaPipe</td><td>—</td><td><code>pose_analyzer.py</code>, <code>model_trainer.py</code></td></tr>
+  </table>
+
+  <h3>New Files This Sprint Will Introduce</h3>
+  <table>
+    <tr><th>File</th><th>Purpose</th><th>Owner</th></tr>
+    <tr><td><code>db/nutrition.json</code></td><td>Meal logs — per athlete, per day, per meal slot</td><td>Dev 1</td></tr>
+    <tr><td><code>db/foods.json</code></td><td>Food database — 200+ Indian + global foods with macros</td><td>Dev 1</td></tr>
+    <tr><td><code>db/wellness.json</code></td><td>Enhanced wellness logs — sleep detail, stress, energy, recovery</td><td>Dev 2</td></tr>
+    <tr><td><code>wellness_engine.py</code></td><td>Wellness score computation, trend analysis, correlations</td><td>Dev 2</td></tr>
+    <tr><td><code>seed_nutrition.py</code></td><td>Seed 90 days of realistic meal data for all 30 athletes</td><td>Dev 6</td></tr>
+    <tr><td><code>seed_wellness.py</code></td><td>Seed enhanced wellness history for all 30 athletes</td><td>Dev 6</td></tr>
+    <tr><td><code>src/screens/NutritionScreen.js</code></td><td>Meal logging &amp; daily nutrition view</td><td>Dev 3</td></tr>
+    <tr><td><code>src/screens/MealLogScreen.js</code></td><td>Add/edit meal entry with food search</td><td>Dev 3</td></tr>
+    <tr><td><code>src/screens/WellnessScreen.js</code></td><td>Full wellness dashboard with score, trends, insights</td><td>Dev 4</td></tr>
+    <tr><td><code>src/screens/SleepLogScreen.js</code></td><td>Detailed sleep entry screen</td><td>Dev 4</td></tr>
+    <tr><td><code>views/wellness.ejs</code></td><td>Wellness analytics dashboard (coach/admin view)</td><td>Dev 5</td></tr>
+  </table>
+
+  <h3>API Endpoint Map — New Wellness &amp; Nutrition Routes</h3>
+  <div class="card">
+    <table>
+      <tr><th>Method</th><th>Route</th><th>Purpose</th><th>Dev</th></tr>
+      <tr><td><code>GET</code></td><td><code>/foods/search?q=&limit=</code></td><td>Search food database (fuzzy match)</td><td>1</td></tr>
+      <tr><td><code>GET</code></td><td><code>/foods/{food_id}</code></td><td>Get food nutritional details</td><td>1</td></tr>
+      <tr><td><code>POST</code></td><td><code>/athlete/{id}/meals</code></td><td>Log a meal (slot + food items)</td><td>1</td></tr>
+      <tr><td><code>GET</code></td><td><code>/athlete/{id}/meals?date=</code></td><td>Get meals for a date</td><td>1</td></tr>
+      <tr><td><code>DELETE</code></td><td><code>/athlete/{id}/meals/{meal_id}</code></td><td>Delete a meal entry</td><td>1</td></tr>
+      <tr><td><code>GET</code></td><td><code>/athlete/{id}/nutrition/summary?date=</code></td><td>Daily calorie + macro totals</td><td>1</td></tr>
+      <tr><td><code>POST</code></td><td><code>/athlete/{id}/nutrition/goals</code></td><td>Set daily calorie/macro targets</td><td>1</td></tr>
+      <tr><td><code>GET</code></td><td><code>/athlete/{id}/nutrition/goals</code></td><td>Get current nutrition goals</td><td>1</td></tr>
+      <tr><td><code>POST</code></td><td><code>/athlete/{id}/wellness</code></td><td>Log enhanced wellness entry</td><td>2</td></tr>
+      <tr><td><code>GET</code></td><td><code>/athlete/{id}/wellness?from=&to=</code></td><td>Get wellness entries (date range)</td><td>2</td></tr>
+      <tr><td><code>GET</code></td><td><code>/athlete/{id}/wellness/score</code></td><td>Current composite wellness score</td><td>2</td></tr>
+      <tr><td><code>GET</code></td><td><code>/athlete/{id}/wellness/trends</code></td><td>Weekly/monthly wellness trends</td><td>2</td></tr>
+      <tr><td><code>GET</code></td><td><code>/athlete/{id}/wellness/recovery</code></td><td>Recovery readiness indicator</td><td>2</td></tr>
+      <tr><td><code>GET</code></td><td><code>/athlete/{id}/wellness/correlations</code></td><td>Sleep vs performance, nutrition vs energy</td><td>2</td></tr>
+      <tr><td><code>GET</code></td><td><code>/wellness/team-overview</code></td><td>All athletes' wellness scores (coach view)</td><td>2</td></tr>
+    </table>
+  </div>
+
+  <h3>Data Model — <code>db/nutrition.json</code></h3>
+  <div class="card" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; white-space: pre; overflow-x: auto; color: var(--text-secondary);">
+{
+  "athlete_01": {
+    "goals": {
+      "daily_calories": 2400,
+      "protein_g": 120,
+      "carbs_g": 300,
+      "fat_g": 65,
+      "fiber_g": 30,
+      "updated_at": "2026-04-01T00:00:00Z"
+    },
+    "logs": {
+      "2026-04-07": {
+        "breakfast": {
+          "meal_id": "m_uuid",
+          "time": "08:30",
+          "items": [
+            { "food_id": "f_001", "name": "Poha", "qty_g": 200,
+              "calories": 270, "protein": 5, "carbs": 52, "fat": 5, "fiber": 3 }
+          ],
+          "total": { "calories": 270, "protein": 5, "carbs": 52, "fat": 5 }
+        },
+        "lunch": { ... },
+        "dinner": { ... },
+        "snacks": [ ... ]
+      }
+    }
+  }
+}
+  </div>
+
+  <h3>Data Model — <code>db/wellness.json</code></h3>
+  <div class="card" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; white-space: pre; overflow-x: auto; color: var(--text-secondary);">
+{
+  "athlete_01": {
+    "2026-04-07": {
+      "sleep": {
+        "bedtime": "23:15",
+        "wake_time": "06:45",
+        "duration_hrs": 7.5,
+        "quality": 4,          // 1-5 (1=terrible, 5=excellent)
+        "interruptions": 1,
+        "sleep_score": 78      // computed
+      },
+      "hydration": {
+        "water_ml": 2800,
+        "target_ml": 3500,
+        "pct": 80
+      },
+      "mental": {
+        "mood": 7,             // 1-10
+        "stress": 4,           // 1-10 (10=max stress)
+        "energy": 7,           // 1-10
+        "journal_note": "Felt good after morning run"
+      },
+      "physical": {
+        "soreness": 3,         // 1-10
+        "resting_hr": 62,      // if available from rPPG
+        "body_weight_kg": 68.5
+      },
+      "wellness_score": 74,    // composite 0-100
+      "recovery_ready": true,  // computed: safe to train hard?
+      "logged_at": "2026-04-07T07:30:00Z"
+    }
+  }
+}
+  </div>
+
+  <h3>Data Model — <code>db/foods.json</code></h3>
+  <div class="card" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; white-space: pre; overflow-x: auto; color: var(--text-secondary);">
+{
+  "f_001": {
+    "food_id": "f_001",
+    "name": "Poha (Flattened Rice)",
+    "category": "breakfast",
+    "cuisine": "indian",
+    "serving_g": 200,
+    "per_100g": {
+      "calories": 135, "protein": 2.5, "carbs": 26, "fat": 2.5, "fiber": 1.5
+    },
+    "tags": ["vegetarian", "gluten-free", "quick"],
+    "common_with": ["peanuts", "curry leaves", "turmeric"]
+  },
+  "f_002": { ... }
+  // 200+ foods: Indian staples, protein sources, fruits, snacks, supplements
+}
+  </div>
+
+  <div class="note-box note-warn">
+    <strong>Important for all devs:</strong> All writes to <code>db/*.json</code> must go through the <code>_save_db()</code> helper in <code>api_server.py</code>. Follow the existing pattern — load, mutate, save. No direct <code>json.dump()</code> calls.
+  </div>
+</div>
+
+<div class="divider page-break"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 3. JTBD ANALYSIS -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="jtbd">
+  <div class="section-header">Section 03 — Product Framework</div>
+  <h2>Jobs-to-be-Done Analysis</h2>
+  <p>Using the <strong>JTBD framework</strong> (from <code>Product-Manager-Skills/skills/jobs-to-be-done</code>), here's what our athletes are actually hiring the wellness module to do:</p>
+
+  <h3>Customer Jobs</h3>
+  <div class="card">
+    <h4 style="color: var(--cyan); margin-bottom: 10px;">Functional Jobs</h4>
+    <ul>
+      <li><strong>Track what I eat</strong> so I know if I'm fueling my training properly — not guessing</li>
+      <li><strong>Log my sleep and recovery</strong> so I can decide whether today is a push day or a rest day</li>
+      <li><strong>See my wellness trend</strong> over a week/month — am I getting healthier or running myself into the ground?</li>
+      <li><strong>Hit my nutrition targets</strong> — know my protein/carb/fat breakdown without a nutritionist</li>
+      <li><strong>Understand why my form dips</strong> — is it sleep? nutrition? stress? Show me the correlation</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4 style="color: var(--purple); margin-bottom: 10px;">Social Jobs</h4>
+    <ul>
+      <li><strong>Show my coach I'm serious</strong> — I track everything, not just training reps</li>
+      <li><strong>Prove to my parents</strong> that I'm eating well and sleeping enough during tournament prep</li>
+      <li><strong>Be seen as disciplined</strong> by peers — my wellness streak shows commitment</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4 style="color: var(--pink); margin-bottom: 10px;">Emotional Jobs</h4>
+    <ul>
+      <li><strong>Feel in control</strong> of my training — not just showing up and grinding blindly</li>
+      <li><strong>Avoid the guilt</strong> of not knowing if I ate right before a competition</li>
+      <li><strong>Feel confident</strong> that rest days are backed by data, not laziness</li>
+      <li><strong>Reduce anxiety</strong> about overtraining — the app tells me when to back off</li>
+    </ul>
+  </div>
+
+  <h3>Pains</h3>
+  <div class="card">
+    <table>
+      <tr><th>Pain Type</th><th>Description</th></tr>
+      <tr><td><strong>Challenge</strong></td><td>No affordable tool combines nutrition + wellness + training performance in one place for Indian athletes. They use 3 different apps or nothing at all.</td></tr>
+      <tr><td><strong>Challenge</strong></td><td>Food databases are Western-centric. Indian athletes eat poha, dal-rice, roti-sabzi — not "chicken breast and broccoli." Existing apps make logging a chore.</td></tr>
+      <tr><td><strong>Costliness</strong></td><td>A sports nutritionist costs ₹2,000–5,000/session. Athletes at Block/District tier can't afford monthly nutrition guidance.</td></tr>
+      <tr><td><strong>Common Mistake</strong></td><td>Athletes skip meals before training, overeat carbs post-session, or ignore hydration — because nobody taught them the basics.</td></tr>
+      <tr><td><strong>Unresolved</strong></td><td>No tool shows how last night's sleep directly correlates with today's form score. The data exists in separate silos.</td></tr>
+    </table>
+  </div>
+
+  <h3>Gains</h3>
+  <div class="card">
+    <table>
+      <tr><th>Gain Type</th><th>Description</th></tr>
+      <tr><td><strong>Expectation</strong></td><td>Log a meal in under 30 seconds — search "dal rice", tap, done. No typing quantities manually.</td></tr>
+      <tr><td><strong>Savings</strong></td><td>Replace a ₹3,000/month nutritionist with an app that's free and knows Indian food natively.</td></tr>
+      <tr><td><strong>Adoption</strong></td><td>If it works with the training data I already have (form scores, sessions), I don't need to start from scratch.</td></tr>
+      <tr><td><strong>Life Improvement</strong></td><td>Know whether to train hard or rest — before I leave the house. One screen, one number, one decision.</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 4. PERSONAS -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="personas">
+  <div class="section-header">Section 04 — Product Framework</div>
+  <h2>Proto-Personas for Wellness</h2>
+  <p>Using <code>Product-Manager-Skills/skills/proto-persona</code> — these are hypotheses to validate, not facts:</p>
+
+  <div class="persona-grid">
+    <div class="card">
+      <div style="font-size: 20px; font-weight: 800; margin-bottom: 4px;">Priya "Prep Queen" Sharma</div>
+      <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Aspiring athlete, 19, District-level sprinter, Lucknow</div>
+      <p style="font-style: italic; border-left: 3px solid var(--cyan); padding-left: 12px; margin-bottom: 12px;">"I train 5 days a week but have no idea if I'm eating right. My coach says 'eat more protein' but what does that even mean in dal terms?"</p>
+      <p><strong>Pains:</strong> Doesn't know her macro split. Uses MyFitnessPal but can't find "rajma chawal." Skips logging after 3 days because it's tedious.</p>
+      <p><strong>Goals:</strong> Qualify for State. Know her nutrition is supporting her sprint times. Sleep 8 hrs consistently.</p>
+      <p><strong>Decides based on:</strong> Speed of logging, seeing numbers improve, coach approval.</p>
+    </div>
+    <div class="card">
+      <div style="font-size: 20px; font-weight: 800; margin-bottom: 4px;">Vikram "Data Bhai" Patel</div>
+      <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">State-level vertical jump athlete, 24, Ahmedabad</div>
+      <p style="font-style: italic; border-left: 3px solid var(--purple); padding-left: 12px; margin-bottom: 12px;">"I already track my sessions religiously. But I can't tell if my form dipped Tuesday because I slept 5 hours or because I ate garbage on Monday."</p>
+      <p><strong>Pains:</strong> Data is in silos — sleep in one app, nutrition in another, form scores in this app. Wants the correlation, not more logging.</p>
+      <p><strong>Goals:</strong> Break his personal best. Optimize recovery. Get National selection.</p>
+      <p><strong>Decides based on:</strong> Data quality, chart trends, whether insights are actionable.</p>
+    </div>
+    <div class="card">
+      <div style="font-size: 20px; font-weight: 800; margin-bottom: 4px;">Coach Rajesh Kumar</div>
+      <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">District sports academy coach, 38, manages 22 athletes, Jaipur</div>
+      <p style="font-style: italic; border-left: 3px solid var(--green); padding-left: 12px; margin-bottom: 12px;">"Half my athletes show up tired and I don't know why until they tell me they slept 4 hours. I need a dashboard that shows me who's ready to train before the session starts."</p>
+      <p><strong>Pains:</strong> No visibility into athletes' wellness between sessions. Gets surprised by poor performance. Can't intervene early on overtraining.</p>
+      <p><strong>Goals:</strong> 80% of athletes showing wellness score > 70 on training days. Reduce injury incidents by 30%.</p>
+      <p><strong>Decides based on:</strong> Team-level dashboard, red/yellow/green status, simplicity.</p>
+    </div>
+    <div class="card">
+      <div style="font-size: 20px; font-weight: 800; margin-bottom: 4px;">Meera Desai (Parent)</div>
+      <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Mother of a 16-year-old swimmer, Pune</div>
+      <p style="font-style: italic; border-left: 3px solid var(--yellow); padding-left: 12px; margin-bottom: 12px;">"My son trains at 5am and I worry he's not eating enough. If I could see that he logged his meals and slept 7 hours, I'd worry less."</p>
+      <p><strong>Pains:</strong> No visibility. Son says "I ate" but she doesn't know what. Worries about growth-phase nutrition.</p>
+      <p><strong>Goals:</strong> Peace of mind. See the nutrition data without nagging her kid.</p>
+      <p><strong>Decides based on:</strong> Trust, simplicity, whether her son actually uses it.</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 5. PROBLEM STATEMENT -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="problem">
+  <div class="section-header">Section 05 — Product Framework</div>
+  <h2>Problem Statement</h2>
+  <p>Using <code>Product-Manager-Skills/skills/problem-statement</code> — the five-part framing:</p>
+
+  <div class="card" style="border-left: 4px solid var(--cyan);">
+    <table>
+      <tr><td style="width: 120px; font-weight: 700; color: var(--cyan);">I am</td><td>a young athlete (17–28) training 4–5 times a week at a district or state sports academy in India</td></tr>
+      <tr><td style="font-weight: 700; color: var(--cyan);">Trying to</td><td>understand how my nutrition, sleep, and recovery affect my training performance — so I can make better daily decisions about what to eat, when to rest, and when to push</td></tr>
+      <tr><td style="font-weight: 700; color: var(--cyan);">But</td><td>I have no access to a sports nutritionist (₹2,000–5,000/session), existing apps don't know Indian food, and my wellness data (sleep, mood, soreness) lives nowhere or in 3 different apps that don't connect to my training data</td></tr>
+      <tr><td style="font-weight: 700; color: var(--cyan);">Because</td><td>the tools that solve this are built for Western athletes with Western diets and Western budgets — and the alternative is asking my coach, who manages 20+ athletes and can't personalize nutrition advice for each of us</td></tr>
+      <tr><td style="font-weight: 700; color: var(--cyan);">Which makes me feel</td><td>frustrated that I'm putting in the training hours but might be undermining my progress with bad nutrition and poor recovery — and I wouldn't even know</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="divider page-break"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 6. DEVELOPER ASSIGNMENTS -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="devs">
+  <div class="section-header">Section 06</div>
+  <h2>Developer Assignments &amp; Roster</h2>
+
+  <table>
+    <tr><th>Dev #</th><th>Focus Area</th><th>Layer</th><th>Epic</th><th>Stories</th></tr>
+    <tr><td><strong>Dev 1</strong></td><td>Nutrition Data &amp; APIs</td><td><span class="tag tag-backend">Backend</span></td><td>Epic 1</td><td>WN-01 → WN-07</td></tr>
+    <tr><td><strong>Dev 2</strong></td><td>Wellness Scoring Engine</td><td><span class="tag tag-backend">Backend</span></td><td>Epic 2</td><td>WN-08 → WN-14</td></tr>
+    <tr><td><strong>Dev 3</strong></td><td>Nutrition Logging UI</td><td><span class="tag tag-android">Android</span></td><td>Epic 3</td><td>WN-15 → WN-19</td></tr>
+    <tr><td><strong>Dev 4</strong></td><td>Wellness Dashboard UI</td><td><span class="tag tag-android">Android</span></td><td>Epic 4</td><td>WN-20 → WN-25</td></tr>
+    <tr><td><strong>Dev 5</strong></td><td>Wellness Analytics Dashboard</td><td><span class="tag tag-frontend">Frontend</span></td><td>Epic 5</td><td>WN-26 → WN-30</td></tr>
+    <tr><td><strong>Dev 6</strong></td><td>Integration, Seed &amp; QA</td><td><span class="tag tag-integration">Integration</span></td><td>Epic 6</td><td>WN-31 → WN-34</td></tr>
+  </table>
+
+  <div class="note-box note-info">
+    <strong>Peer Reviewer for all PRs:</strong> Raj Shukla (Junior Developer). Every PR must include: passing lint, tested on at least 2 athlete IDs, no hardcoded IPs/values, and <code>_save_db()</code> used for all JSON writes. Raj will verify acceptance criteria line by line.
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 7. EPIC 1 — NUTRITION DATA FOUNDATION -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="epic1">
+  <div class="section-header">Section 07 — Epic 1</div>
+  <h2>Nutrition Data Foundation <span class="tag tag-backend">Backend</span> <span class="tag tag-priority-high">P0 — Must Have</span></h2>
+  <p><strong>Assigned to: Dev 1</strong> &nbsp;|&nbsp; All work in <code>personal-health-backend/</code></p>
+
+  <!-- WN-01 -->
+  <div class="story-card">
+    <div class="story-id">WN-01 &nbsp; <span class="sp">3 SP</span></div>
+    <div class="story-title">Food Database — Create the Indian-First Food Reference</div>
+    <div class="story-statement">
+      As an athlete logging my meals, I want to search from a database of Indian and common global foods with accurate nutritional data per 100g, so that I don't have to manually type calories for "poha" or "dal tadka."
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> the file <code>db/foods.json</code> exists with at least 200 food entries</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> each entry has: <code>food_id</code>, <code>name</code>, <code>category</code> (breakfast/lunch/dinner/snack/protein/fruit/beverage), <code>cuisine</code> (indian/global), <code>serving_g</code>, <code>per_100g</code> object with <code>calories</code>, <code>protein</code>, <code>carbs</code>, <code>fat</code>, <code>fiber</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> at least 120 entries are Indian foods (poha, upma, idli, dosa, dal varieties, roti, paratha, rice, sabzi, paneer, curd, lassi, khichdi, rajma, chole, biryani, etc.)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> at least 40 entries are common protein sources (eggs, chicken, whey protein, peanut butter, sprouts, soya chunks, etc.)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> at least 20 entries are fruits and beverages</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> each food has a <code>tags</code> array (vegetarian, non-vegetarian, vegan, gluten-free, high-protein, etc.)</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> the database is loadable via <code>_load_db("foods")</code> with no parse errors</div>
+    </div>
+    <div class="tech-note">
+      <strong>File:</strong> db/foods.json<br>
+      <strong>Pattern:</strong> Follow athletes.json structure. Use food_id format: f_001, f_002...<br>
+      <strong>Source:</strong> IFCT 2017 (Indian Food Composition Tables) for macro values. Cross-check with NIN Hyderabad data.
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Verify at least 5 random foods against IFCT values. Check no duplicate food_ids. Verify all required fields present on every entry. Check category distribution.</div>
+  </div>
+
+  <!-- WN-02 -->
+  <div class="story-card">
+    <div class="story-id">WN-02 &nbsp; <span class="sp">2 SP</span></div>
+    <div class="story-title">Food Search API — Fuzzy Search Endpoint</div>
+    <div class="story-statement">
+      As an athlete typing "dal" in the meal logger, I want to see all dal variants (dal tadka, dal makhani, moong dal, masoor dal) ranked by relevance, so that I find the right food in under 3 taps.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> a GET request to <code>/foods/search?q=dal&limit=10</code></div>
+      <div class="ac-item"><span class="ac-keyword">When</span> the query is processed</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> return <code>{"foods": [...], "total": N}</code> where each food has full nutritional data</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> search matches against <code>name</code>, <code>tags</code>, and <code>category</code> (case-insensitive)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> partial matches work: "chi" returns "Chicken Breast", "Chickpea Curry", "Chikki"</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> empty query returns top 20 foods sorted by category</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> response time is under 100ms for the full 200-food database</div>
+    </div>
+    <div class="tech-note">
+      <strong>Endpoint:</strong> GET /foods/search &nbsp;|&nbsp; <strong>File:</strong> api_server.py<br>
+      <strong>Impl:</strong> Simple substring match + sort by match position. No need for external search libraries — it's 200 items.<br>
+      <strong>Add inside:</strong> <code>if FASTAPI_AVAILABLE:</code> block.
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Test with: "poh" (→ poha), "egg" (→ egg boiled, egg omelette), "pro" (→ protein sources), "" (→ default list). Verify limit parameter works. Check response shape.</div>
+  </div>
+
+  <!-- WN-03 -->
+  <div class="story-card">
+    <div class="story-id">WN-03 &nbsp; <span class="sp">3 SP</span></div>
+    <div class="story-title">Meal Logging — Create and Read Meal Entries</div>
+    <div class="story-statement">
+      As an athlete, I want to log what I ate for breakfast, lunch, dinner, or as a snack, so that I can track my daily nutrition intake accurately.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> a POST to <code>/athlete/{id}/meals</code> with body: <code>{"date": "2026-04-07", "slot": "breakfast", "time": "08:30", "items": [{"food_id": "f_001", "qty_g": 200}]}</code></div>
+      <div class="ac-item"><span class="ac-keyword">When</span> the request is processed</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> the meal is saved to <code>db/nutrition.json</code> under <code>athlete_id → logs → date → slot</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> calories and macros are computed from <code>foods.json</code> based on <code>qty_g</code> (pro-rated from <code>per_100g</code>)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> a <code>meal_id</code> (UUID) is generated and returned</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> the total for that meal slot is computed and saved</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> a GET to <code>/athlete/{id}/meals?date=2026-04-07</code> returns all meals for that date grouped by slot</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> invalid <code>food_id</code> returns 404 with message "Food not found: {food_id}"</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> invalid <code>athlete_id</code> returns 404</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> slot must be one of: breakfast, lunch, dinner, snacks — else 400</div>
+    </div>
+    <div class="tech-note">
+      <strong>Endpoint:</strong> POST /athlete/{id}/meals &nbsp;|&nbsp; GET /athlete/{id}/meals<br>
+      <strong>Storage:</strong> db/nutrition.json via _save_db("nutrition")<br>
+      <strong>Computation:</strong> For 200g of a food with 135 cal/100g → 270 cal. All macros pro-rated the same way.
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Log a meal with 2 items, verify total is sum. Try duplicate slot (should overwrite or append?). Verify _save_db() is used. Test with non-existent athlete. Test with qty_g = 0.</div>
+  </div>
+
+  <!-- WN-04 -->
+  <div class="story-card">
+    <div class="story-id">WN-04 &nbsp; <span class="sp">2 SP</span></div>
+    <div class="story-title">Delete Meal — Remove a Logged Meal</div>
+    <div class="story-statement">
+      As an athlete who accidentally logged the wrong food, I want to delete a meal entry, so that my daily totals remain accurate.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> a DELETE to <code>/athlete/{id}/meals/{meal_id}</code></div>
+      <div class="ac-item"><span class="ac-keyword">When</span> the meal_id exists in the athlete's logs</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> the meal entry is removed from <code>db/nutrition.json</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> daily totals are recalculated</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> response is <code>{"deleted": true, "meal_id": "..."}</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> if meal_id doesn't exist, return 404 with <code>{"error": "Meal not found"}</code></div>
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Delete a meal, verify GET returns updated list. Try deleting the same meal twice. Verify nutrition summary updates after deletion.</div>
+  </div>
+
+  <!-- WN-05 -->
+  <div class="story-card">
+    <div class="story-id">WN-05 &nbsp; <span class="sp">2 SP</span></div>
+    <div class="story-title">Daily Nutrition Summary — Calorie &amp; Macro Totals</div>
+    <div class="story-statement">
+      As an athlete, I want to see my total calories, protein, carbs, fat, and fiber for any given day, so that I know if I'm hitting my targets or falling short.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> a GET to <code>/athlete/{id}/nutrition/summary?date=2026-04-07</code></div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> return totals across all meal slots: <code>{"date": "...", "total_calories": N, "protein_g": N, "carbs_g": N, "fat_g": N, "fiber_g": N, "meals_logged": 3, "slots": {"breakfast": {...}, "lunch": {...}, ...}}</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> if goals are set, include <code>"goals": {...}</code> and <code>"pct_of_goal": {"calories": 85, "protein": 72, ...}</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> if no meals logged for that date, return zeroes (not 404)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> date defaults to today if query param is omitted</div>
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Log 3 meals, verify sum is correct. Test date with no meals → all zeroes. Test with goals set vs. not set. Verify pct_of_goal rounds to integers.</div>
+  </div>
+
+  <!-- WN-06 -->
+  <div class="story-card">
+    <div class="story-id">WN-06 &nbsp; <span class="sp">2 SP</span></div>
+    <div class="story-title">Nutrition Goals — Set and Retrieve Targets</div>
+    <div class="story-statement">
+      As an athlete, I want to set daily calorie and macro targets (protein, carbs, fat, fiber), so that the app can show me how close I am to my goals each day.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> a POST to <code>/athlete/{id}/nutrition/goals</code> with <code>{"daily_calories": 2400, "protein_g": 120, "carbs_g": 300, "fat_g": 65, "fiber_g": 30}</code></div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> goals are saved under <code>athlete_id → goals</code> in <code>db/nutrition.json</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> <code>updated_at</code> timestamp is added</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> GET <code>/athlete/{id}/nutrition/goals</code> returns the saved goals</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> if no goals are set, GET returns default goals based on sport: sprint athletes default to 2600/130p/320c/70f, power athletes to 2800/150p/280c/80f</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> all values must be positive integers — else 400</div>
+    </div>
+    <div class="tech-note">
+      <strong>Default Goals by Sport:</strong><br>
+      vertical_jump / sprint / javelin → 2600 cal, 130g P, 320g C, 70g F<br>
+      squat / push_up / pull_up → 2800 cal, 150g P, 280g C, 80g F<br>
+      cricket_bat → 2400 cal, 110g P, 310g C, 65g F<br>
+      <strong>Source:</strong> NIN Hyderabad RDA guidelines for 18–30 active males, adapted.
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Set goals, verify persistence across server restart. Test GET with no goals → default by sport. Test negative values → 400. Verify updated_at changes on re-POST.</div>
+  </div>
+
+  <!-- WN-07 -->
+  <div class="story-card">
+    <div class="story-id">WN-07 &nbsp; <span class="sp">1 SP</span></div>
+    <div class="story-title">Get Single Food Detail</div>
+    <div class="story-statement">
+      As an athlete selecting a food from search results, I want to see full nutritional detail for that food, so that I can decide on the serving size.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> a GET to <code>/foods/{food_id}</code></div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> return the full food object from <code>db/foods.json</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> if food_id doesn't exist, return 404</div>
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Test with valid and invalid food_id. Verify response shape matches foods.json structure.</div>
+  </div>
+</div>
+
+<div class="divider page-break"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 8. EPIC 2 — WELLNESS SCORING ENGINE -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="epic2">
+  <div class="section-header">Section 08 — Epic 2</div>
+  <h2>Wellness Scoring Engine <span class="tag tag-backend">Backend</span> <span class="tag tag-priority-high">P0 — Must Have</span></h2>
+  <p><strong>Assigned to: Dev 2</strong> &nbsp;|&nbsp; New file: <code>wellness_engine.py</code> + endpoints in <code>api_server.py</code></p>
+
+  <!-- WN-08 -->
+  <div class="story-card">
+    <div class="story-id">WN-08 &nbsp; <span class="sp">3 SP</span></div>
+    <div class="story-title">Enhanced Wellness Logging — Full Daily Entry</div>
+    <div class="story-statement">
+      As an athlete, I want to log detailed wellness data each morning (sleep quality, hydration, mood, stress, energy, soreness, body weight), so that I have a complete picture of my daily readiness.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> a POST to <code>/athlete/{id}/wellness</code> with body:</div>
+      <div class="ac-item" style="padding-left: 20px;"><code>{"date": "2026-04-07", "sleep": {"bedtime": "23:15", "wake_time": "06:45", "quality": 4, "interruptions": 1}, "hydration": {"water_ml": 2800}, "mental": {"mood": 7, "stress": 4, "energy": 7, "journal_note": "..."}, "physical": {"soreness": 3, "body_weight_kg": 68.5}}</code></div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> the entry is saved to <code>db/wellness.json</code> under <code>athlete_id → date</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> <code>sleep.duration_hrs</code> is computed from bedtime/wake_time (handle midnight crossing)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> <code>sleep.sleep_score</code> is computed (formula below)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> <code>hydration.target_ml</code> is computed as <code>body_weight_kg × 35</code> (ml), <code>hydration.pct</code> derived</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> <code>wellness_score</code> (0–100 composite) is computed and stored</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> <code>recovery_ready</code> (boolean) is computed: true if wellness_score >= 60</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> <code>logged_at</code> timestamp is added</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> re-POST for the same date overwrites the previous entry</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> partial body is accepted — only provided fields update; missing fields retain previous values or null</div>
+    </div>
+    <div class="tech-note">
+      <strong>Sleep Score Formula:</strong><br>
+      base = (duration_hrs / 8.0) × 40 &nbsp; // max 40 pts for 8+ hrs<br>
+      quality_pts = quality × 8 &nbsp; // max 40 pts (quality 1-5)<br>
+      interruption_penalty = interruptions × 5 &nbsp; // -5 per interruption<br>
+      sleep_score = clamp(base + quality_pts - interruption_penalty, 0, 100)<br><br>
+      <strong>Wellness Score Formula (composite):</strong><br>
+      sleep_component = sleep_score × 0.30<br>
+      hydration_component = hydration_pct × 0.15<br>
+      mood_component = (mood / 10) × 100 × 0.15<br>
+      energy_component = (energy / 10) × 100 × 0.15<br>
+      stress_component = ((10 - stress) / 10) × 100 × 0.10 &nbsp; // inverted: low stress = good<br>
+      soreness_component = ((10 - soreness) / 10) × 100 × 0.15 &nbsp; // inverted<br>
+      wellness_score = round(sum of components)
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Test midnight crossing (bedtime 23:30, wake 06:00 → 6.5hrs). Test all-5s input → should be high score. Test all-1s → low score. Test partial update. Verify _save_db(). Test negative body weight → 400.</div>
+  </div>
+
+  <!-- WN-09 -->
+  <div class="story-card">
+    <div class="story-id">WN-09 &nbsp; <span class="sp">2 SP</span></div>
+    <div class="story-title">Wellness History — Date Range Query</div>
+    <div class="story-statement">
+      As an athlete, I want to retrieve my wellness entries for a date range, so that I can see how my wellness has changed over a week or month.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> a GET to <code>/athlete/{id}/wellness?from=2026-03-01&to=2026-04-07</code></div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> return <code>{"entries": [{date, wellness_score, sleep.sleep_score, ...}, ...], "total": N}</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> entries are sorted by date ascending</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> if <code>from</code>/<code>to</code> are omitted, default to last 7 days</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> dates with no entry are excluded (not zero-filled)</div>
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Query 30-day range with sparse data. Verify sort order. Test with no data in range → empty list (not 404).</div>
+  </div>
+
+  <!-- WN-10 -->
+  <div class="story-card">
+    <div class="story-id">WN-10 &nbsp; <span class="sp">3 SP</span></div>
+    <div class="story-title">Wellness Score — Current Composite Score Endpoint</div>
+    <div class="story-statement">
+      As an athlete opening the app in the morning, I want to see a single wellness score (0–100) that tells me "you're at 74% today," so I can instantly decide if it's a push day or a recovery day.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> a GET to <code>/athlete/{id}/wellness/score</code></div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> return today's wellness score: <code>{"date": "...", "wellness_score": 74, "recovery_ready": true, "breakdown": {"sleep": 23, "hydration": 12, "mood": 11, "energy": 12, "stress": 8, "soreness": 8}, "recommendation": "Good to train. Focus on hydration — you're at 80% of target."}</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> if no entry for today, check yesterday. If neither, return <code>{"wellness_score": null, "message": "No recent wellness data. Log your morning check-in!"}</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> <code>recommendation</code> is generated based on the lowest-scoring component</div>
+    </div>
+    <div class="tech-note">
+      <strong>Recommendation logic:</strong><br>
+      Find the component with lowest relative contribution.<br>
+      sleep &lt; 18/30 → "Your sleep score is low. Try to get 7-8 hours tonight."<br>
+      hydration &lt; 10/15 → "You're under-hydrated. Aim for {target_ml}ml today."<br>
+      stress &gt; 7 → "High stress detected. Consider a lighter session or active recovery."<br>
+      soreness &gt; 7 → "High soreness. Rest day recommended to prevent injury."<br>
+      Default → "Looking good! You're ready for a solid session."
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Log wellness with low sleep → verify recommendation mentions sleep. Test with no data → null response. Verify breakdown sums to wellness_score (approximately). Test recovery_ready threshold (60).</div>
+  </div>
+
+  <!-- WN-11 -->
+  <div class="story-card">
+    <div class="story-id">WN-11 &nbsp; <span class="sp">3 SP</span></div>
+    <div class="story-title">Wellness Trends — Weekly and Monthly Analysis</div>
+    <div class="story-statement">
+      As an athlete looking at my progress, I want to see weekly and monthly averages for each wellness component, so that I can identify patterns (e.g., "my sleep always drops on weekends").
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> a GET to <code>/athlete/{id}/wellness/trends?period=weekly</code></div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> return last 4 weeks of averages: <code>{"period": "weekly", "trends": [{"week": "2026-W14", "avg_wellness": 72, "avg_sleep_score": 68, "avg_hydration_pct": 78, "avg_mood": 7.2, "avg_stress": 4.1, "entries_count": 5}, ...]}</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> <code>period=monthly</code> returns last 3 months with monthly averages</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> include <code>direction</code> field: "improving" / "declining" / "stable" (based on linear trend of last 4 data points)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> if fewer than 3 entries in a period, mark as <code>"insufficient_data": true</code></div>
+    </div>
+    <div class="tech-note">
+      <strong>File:</strong> wellness_engine.py → <code>compute_trends(entries, period)</code><br>
+      <strong>Direction calc:</strong> Simple linear regression slope on wellness_score. slope > 1 → improving, slope < -1 → declining, else → stable. Mirror the TrendAnalyzer pattern from intelligence.py.
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Seed 30 days of data, verify 4-week grouping. Check that weeks with <3 entries show insufficient_data. Verify direction matches visual trend.</div>
+  </div>
+
+  <!-- WN-12 -->
+  <div class="story-card">
+    <div class="story-id">WN-12 &nbsp; <span class="sp">2 SP</span></div>
+    <div class="story-title">Recovery Readiness — Training Recommendation</div>
+    <div class="story-statement">
+      As an athlete about to start a training session, I want a clear "ready / caution / rest" indicator based on my wellness data, so that I train smart and avoid injury.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> a GET to <code>/athlete/{id}/wellness/recovery</code></div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> return <code>{"status": "ready|caution|rest", "wellness_score": N, "factors": ["low sleep", "high soreness"], "suggestion": "..."}</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> status = "ready" if wellness_score >= 70</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> status = "caution" if wellness_score 50–69</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> status = "rest" if wellness_score < 50</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> factors list the components that scored below 50% of their max contribution</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> also check 3-day trend: if wellness_score has been declining for 3+ consecutive days, bump status one level down (ready → caution, caution → rest)</div>
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Test score of 75 → "ready". Test 55 → "caution". Test 40 → "rest". Test 3-day decline override: 75, 72, 68 → should be "caution" not "ready". Verify factors list is accurate.</div>
+  </div>
+
+  <!-- WN-13 -->
+  <div class="story-card">
+    <div class="story-id">WN-13 &nbsp; <span class="sp">3 SP</span></div>
+    <div class="story-title">Wellness-Performance Correlations</div>
+    <div class="story-statement">
+      As a data-driven athlete, I want to see how my sleep, nutrition, and hydration correlate with my form scores and session quality, so that I can optimize the inputs that matter most.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> a GET to <code>/athlete/{id}/wellness/correlations</code></div>
+      <div class="ac-item"><span class="ac-keyword">When</span> the athlete has at least 10 sessions with matching wellness data</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> return: <code>{"correlations": {"sleep_vs_form": 0.72, "hydration_vs_form": 0.45, "mood_vs_form": 0.38, "nutrition_vs_form": 0.61}, "insights": ["Your form score improves by ~8 points when you sleep 7+ hours", "Sessions after 2.5L+ water intake show 12% higher form scores"], "sample_size": 24}</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> correlation is Pearson's r between each wellness component and the session's avg_form_score</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> only sessions where the athlete logged wellness on the same day are included</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> if fewer than 10 matching data points, return <code>{"correlations": null, "message": "Need at least 10 sessions with wellness data to compute correlations"}</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> insights are generated as natural-language sentences based on the top 2 correlations</div>
+    </div>
+    <div class="tech-note">
+      <strong>File:</strong> wellness_engine.py → <code>compute_correlations(athlete_id)</code><br>
+      <strong>Dependencies:</strong> Reads from db/sessions.json (form_score) + db/wellness.json (same-day entries)<br>
+      <strong>Pearson's r:</strong> Use numpy.corrcoef or manual computation. Already available in requirements.txt.
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> With seeded data, verify correlation values are between -1 and 1. Verify sample_size matches actual matched entries. Test with <10 matches → graceful message. Verify insights reference the right metric.</div>
+  </div>
+
+  <!-- WN-14 -->
+  <div class="story-card">
+    <div class="story-id">WN-14 &nbsp; <span class="sp">2 SP</span></div>
+    <div class="story-title">Team Wellness Overview — Coach Dashboard API</div>
+    <div class="story-statement">
+      As a coach, I want to see a summary of all my athletes' latest wellness scores in one API call, so that I can identify who's struggling before the training session starts.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> a GET to <code>/wellness/team-overview</code></div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> return: <code>{"athletes": [{"id": "...", "name": "...", "wellness_score": 74, "recovery_status": "ready", "last_logged": "2026-04-07"}, ...], "summary": {"avg_score": 68, "ready_count": 18, "caution_count": 8, "rest_count": 4}}</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> athletes are sorted by wellness_score ascending (worst first — so coach sees who needs attention first)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> athletes with no wellness data in last 3 days show <code>"wellness_score": null, "recovery_status": "unknown"</code></div>
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Verify sort order (worst first). Verify athletes with stale data show "unknown". Verify summary counts add up to total athletes.</div>
+  </div>
+</div>
+
+<div class="divider page-break"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 9. EPIC 3 — NUTRITION LOGGING (ANDROID) -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="epic3">
+  <div class="section-header">Section 09 — Epic 3</div>
+  <h2>Nutrition Logging UI <span class="tag tag-android">Android</span> <span class="tag tag-priority-high">P0 — Must Have</span></h2>
+  <p><strong>Assigned to: Dev 3</strong> &nbsp;|&nbsp; Blocked by: WN-01, WN-02, WN-03 (Dev 1's food DB + APIs must exist first)</p>
+
+  <!-- WN-15 -->
+  <div class="story-card">
+    <div class="story-id">WN-15 &nbsp; <span class="sp">5 SP</span></div>
+    <div class="story-title">Nutrition Screen — Daily Meal Overview</div>
+    <div class="story-statement">
+      As an athlete, I want a dedicated Nutrition screen that shows today's meals organized by slot (breakfast/lunch/dinner/snacks) with calorie and macro totals, so I can see what I've eaten and what's remaining.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I navigate to the Nutrition screen</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> I see today's date with left/right arrows to navigate to other dates</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> I see a top summary card showing: total calories consumed / goal, and circular progress rings for Protein, Carbs, Fat</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> below the summary, 4 collapsible sections for Breakfast, Lunch, Dinner, Snacks</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> each section shows: meal slot name, total calories for that slot, list of food items (name + qty + calories), and an "Add Food" button</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> tapping a food item shows a swipe-to-delete action</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> data loads from <code>GET /athlete/{id}/meals?date=</code> and <code>GET /athlete/{id}/nutrition/summary?date=</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> empty state shows: "No meals logged yet. Tap + to start tracking!" with a prominent CTA</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> the screen follows dark theme: bg <code>#0a0e1a</code>, cards <code>#111827</code>, accent <code>#06b6d4</code></div>
+    </div>
+    <div class="tech-note">
+      <strong>New file:</strong> src/screens/NutritionScreen.js<br>
+      <strong>Navigation:</strong> Add as a stack screen accessible from HomeScreen content grid tile "Nutrition"<br>
+      <strong>Pattern:</strong> Follow HomeScreen.js pattern for API calls, loading states, error handling<br>
+      <strong>Colors:</strong> Import from src/styles/colors.js. Accent: #06b6d4. No random multi-colour.
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Verify no hardcoded IPs — uses BACKEND_HOST from constants.js. Verify date navigation works. Verify empty state renders. Test with 0 meals, 1 meal, 4 full slots. Swipe-to-delete actually calls DELETE API. Dark theme compliance.</div>
+  </div>
+
+  <!-- WN-16 -->
+  <div class="story-card">
+    <div class="story-id">WN-16 &nbsp; <span class="sp">5 SP</span></div>
+    <div class="story-title">Meal Log Screen — Food Search &amp; Add</div>
+    <div class="story-statement">
+      As an athlete tapping "Add Food" in a meal slot, I want a search screen where I can type a food name, see results with nutritional info, select one, set the quantity, and save — all in under 30 seconds.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I tap "Add Food" on the breakfast slot</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> a modal/screen opens with a search bar auto-focused and keyboard visible</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> as I type, results update in real-time (debounced 300ms) from <code>GET /foods/search?q=</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> each result shows: food name, cuisine tag (Indian/Global), calories per serving, and serving size</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> tapping a food opens a quantity selector: pre-filled with <code>serving_g</code>, with +/- 25g buttons, and a number input</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> as I adjust quantity, calories and macros update in real-time (computed client-side from per_100g)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> tapping "Add" calls <code>POST /athlete/{id}/meals</code> and returns to Nutrition screen with the meal visible</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> recently logged foods appear at the top of the search results before I type anything (last 10 foods from local storage)</div>
+    </div>
+    <div class="tech-note">
+      <strong>New file:</strong> src/screens/MealLogScreen.js<br>
+      <strong>Props:</strong> Receives <code>slot</code> (breakfast/lunch/dinner/snacks) and <code>date</code> from NutritionScreen<br>
+      <strong>Local caching:</strong> Store recent foods in AsyncStorage under key <code>recent_foods</code>. Max 20 items, FIFO.<br>
+      <strong>Debounce:</strong> 300ms on search input — don't fire API on every keystroke.
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Type "ch" → verify results appear after debounce. Test quantity 0 → should be blocked. Test quantity 999g → should still compute. Verify recent foods persist across app restarts (AsyncStorage). Verify no network call on empty query (show recents instead). Verify returned meal appears on NutritionScreen without manual refresh.</div>
+  </div>
+
+  <!-- WN-17 -->
+  <div class="story-card">
+    <div class="story-id">WN-17 &nbsp; <span class="sp">3 SP</span></div>
+    <div class="story-title">Macro Progress Rings — Visual Goal Tracking</div>
+    <div class="story-statement">
+      As an athlete, I want to see circular progress rings for Calories, Protein, Carbs, and Fat showing how close I am to my daily goals, so that I get visual motivation to hit my targets.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I'm on the Nutrition screen and I've set nutrition goals</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> I see 4 circular progress rings: Calories (large, center), Protein, Carbs, Fat (smaller, row below)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> each ring shows: consumed / goal, percentage, and color-coded (cyan under 80%, green 80-100%, red over 110%)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> the ring animates from 0 to current value on screen load (300ms, ease-out)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> if no goals are set, show default goals (from API) with a "Set Custom Goals" link</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> rendered using <code>react-native-svg</code> (already in package.json — used by MetricsScreen's spider chart)</div>
+    </div>
+    <div class="tech-note">
+      <strong>Component:</strong> Can be extracted as <code>src/components/ProgressRing.js</code> for reuse in WellnessScreen too.<br>
+      <strong>SVG pattern:</strong> Follow the spider chart pattern from MetricsScreen.js. Use strokeDasharray/strokeDashoffset for the ring animation.
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Test with 0% (no meals) → empty rings. Test 100% → full ring in green. Test 120% → red overflow indicator. Verify animation doesn't jank on low-end devices. Test with no goals set → defaults shown.</div>
+  </div>
+
+  <!-- WN-18 -->
+  <div class="story-card">
+    <div class="story-id">WN-18 &nbsp; <span class="sp">2 SP</span></div>
+    <div class="story-title">Quick Add — Shortcut for Common Meals</div>
+    <div class="story-statement">
+      As an athlete who eats the same breakfast daily, I want a "Quick Add" feature that lets me re-log a previous meal in one tap, so I don't repeat the search-and-select flow every morning.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I've logged at least one meal previously</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> below each meal slot I see "Quick Add" suggestions: the last 3 meals logged in that slot (across any date)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> each suggestion shows: food items summary (e.g., "Poha + Tea — 340 cal") and a "+" button</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> tapping "+" logs the entire meal (all items, same quantities) to today's date</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> quick-add data is sourced from local storage (AsyncStorage), not an API call</div>
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Verify suggestions are slot-specific (breakfast suggestions only under breakfast). Verify quick-add creates correct API call. Test with no history → no quick-add section shown.</div>
+  </div>
+
+  <!-- WN-19 -->
+  <div class="story-card">
+    <div class="story-id">WN-19 &nbsp; <span class="sp">2 SP</span></div>
+    <div class="story-title">Nutrition Goals Screen — Set Custom Targets</div>
+    <div class="story-statement">
+      As an athlete, I want a screen to set my daily calorie and macro targets, so that the progress rings reflect my personal goals rather than generic defaults.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I tap "Set Custom Goals" on the Nutrition screen</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> I see a form with: Daily Calories (number input), Protein (g), Carbs (g), Fat (g), Fiber (g)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> fields are pre-filled with current goals (or sport defaults if none set)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> a "Save" button calls <code>POST /athlete/{id}/nutrition/goals</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> on success, navigates back to Nutrition screen with updated rings</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> validation: all values must be positive integers, calories must be 800–6000 range</div>
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Set goals, go back, verify rings reflect new values. Test with 0 protein → validation error. Test with 7000 calories → blocked. Verify persistence after app restart.</div>
+  </div>
+</div>
+
+<div class="divider page-break"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 10. EPIC 4 — WELLNESS DASHBOARD (ANDROID) -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="epic4">
+  <div class="section-header">Section 10 — Epic 4</div>
+  <h2>Wellness Dashboard UI <span class="tag tag-android">Android</span> <span class="tag tag-priority-high">P0 — Must Have</span></h2>
+  <p><strong>Assigned to: Dev 4</strong> &nbsp;|&nbsp; Blocked by: WN-08, WN-10 (Dev 2's wellness APIs)</p>
+
+  <!-- WN-20 -->
+  <div class="story-card">
+    <div class="story-id">WN-20 &nbsp; <span class="sp">5 SP</span></div>
+    <div class="story-title">Wellness Screen — Morning Check-In Dashboard</div>
+    <div class="story-statement">
+      As an athlete, I want a Wellness screen that shows my current wellness score prominently, with a breakdown of sleep, hydration, mood, energy, stress, and soreness, so I can understand my daily readiness at a glance.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I navigate to the Wellness screen</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> I see a large circular wellness score (0–100) at the top with color: green (70+), yellow (50–69), red (&lt;50)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> below it, a recovery status badge: "Ready to Train" (green), "Train with Caution" (yellow), "Rest Day Recommended" (red)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> below the badge, a recommendation text from the API</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> below that, 6 component cards in a 2×3 grid: Sleep Score, Hydration %, Mood, Energy, Stress, Soreness — each with a mini bar or icon showing the level</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> a "Log Today" CTA button if no wellness data exists for today</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> if data exists for today, the CTA changes to "Update" and fields are pre-filled</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> data loads from <code>GET /athlete/{id}/wellness/score</code></div>
+    </div>
+    <div class="tech-note">
+      <strong>New file:</strong> src/screens/WellnessScreen.js<br>
+      <strong>Navigation:</strong> Add as a stack screen from HomeScreen tile "Wellness" (replace or augment the daily tracker tile)<br>
+      <strong>Colors:</strong> Use the same accent color #06b6d4. Green: #10b981, Yellow: #f59e0b, Red: #ef4444 — all from colors.js.
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Verify score of 75 → green ring, "Ready". Score of 55 → yellow, "Caution". Score of 35 → red, "Rest". Verify "Log Today" CTA appears when no data. Verify pre-fill on "Update". Verify no hardcoded URLs.</div>
+  </div>
+
+  <!-- WN-21 -->
+  <div class="story-card">
+    <div class="story-id">WN-21 &nbsp; <span class="sp">5 SP</span></div>
+    <div class="story-title">Wellness Log Form — Morning Check-In Input</div>
+    <div class="story-statement">
+      As an athlete, I want a quick, guided form to log my sleep details, hydration, mood, stress, energy, and soreness each morning, finishing in under 60 seconds.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I tap "Log Today" on the Wellness screen</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> I see a scrollable form with these sections:</div>
+      <div class="ac-item" style="padding-left: 20px;">1. <strong>Sleep:</strong> Bedtime (time picker), Wake time (time picker), Quality (1–5 star rating), Interruptions (0/1/2/3+ selector)</div>
+      <div class="ac-item" style="padding-left: 20px;">2. <strong>Hydration:</strong> Water intake (slider 0–5000ml in 250ml steps, or quick buttons: 1L, 2L, 3L)</div>
+      <div class="ac-item" style="padding-left: 20px;">3. <strong>Mental:</strong> Mood (1–10 slider with emoji at ends), Stress (1–10 slider), Energy (1–10 slider)</div>
+      <div class="ac-item" style="padding-left: 20px;">4. <strong>Physical:</strong> Soreness (1–10 slider), Body weight (optional, number input in kg)</div>
+      <div class="ac-item" style="padding-left: 20px;">5. <strong>Journal:</strong> Optional text field ("How are you feeling today?" — max 200 chars)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> a "Save" button at the bottom calls <code>POST /athlete/{id}/wellness</code></div>
+      <div class="ac-item"><span class="ac-keyword">And</span> on success, navigates back to Wellness screen showing the updated score</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> the form is pre-filled if updating an existing entry for today</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> all fields except body_weight and journal_note are required</div>
+    </div>
+    <div class="tech-note">
+      <strong>UX:</strong> Keep it fast. Use sliders not text inputs for scales. Pre-select reasonable defaults (quality=3, mood=5, stress=5, energy=5, soreness=3, water=1500ml) so athlete can just adjust and save.<br>
+      <strong>Time picker:</strong> Use Expo's DateTimePicker or a simple hour:minute dropdown.
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Time the form completion — should be under 60s with defaults. Test midnight-crossing sleep times. Test "Update" pre-fill with existing data. Verify all required fields prevent save if missing. Test journal with 201 chars → truncated or blocked.</div>
+  </div>
+
+  <!-- WN-22 -->
+  <div class="story-card">
+    <div class="story-id">WN-22 &nbsp; <span class="sp">3 SP</span></div>
+    <div class="story-title">Sleep Detail Card — Expanded Sleep Analytics</div>
+    <div class="story-statement">
+      As an athlete who tracks sleep, I want to see my sleep trends over the past 7 days on the Wellness screen, so I can spot patterns like weekend sleep debt.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I tap the Sleep card on the Wellness screen</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> it expands to show: last 7 days of sleep data as a bar chart (bars = duration, color = quality)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> average sleep duration for the week</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> a "Best night" and "Worst night" label with dates</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> a target line at 8 hours on the chart</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> data comes from <code>GET /athlete/{id}/wellness?from=&to=</code> (last 7 days)</div>
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Verify bar chart renders with 7 data points. Test with < 7 days data → only filled bars. Verify color coding matches quality. Verify 8hr target line is visible.</div>
+  </div>
+
+  <!-- WN-23 -->
+  <div class="story-card">
+    <div class="story-id">WN-23 &nbsp; <span class="sp">3 SP</span></div>
+    <div class="story-title">Weekly Wellness Trend — Sparkline on Wellness Screen</div>
+    <div class="story-statement">
+      As an athlete, I want to see a 4-week trend line of my overall wellness score on the Wellness screen, so I know if I'm trending up or down overall.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I'm on the Wellness screen and I've logged wellness data for 2+ weeks</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> I see a sparkline chart below the component cards showing 4 weeks of avg wellness scores</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> the line is green if trend is "improving", red if "declining", cyan if "stable"</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> a small text label: "Trending ↑ improving" or "→ stable" or "↓ declining"</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> data comes from <code>GET /athlete/{id}/wellness/trends?period=weekly</code></div>
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Test with improving data → green line + "↑" label. Test with insufficient data → "Not enough data yet" message. Verify sparkline uses react-native-svg (not a heavy chart library).</div>
+  </div>
+
+  <!-- WN-24 -->
+  <div class="story-card">
+    <div class="story-id">WN-24 &nbsp; <span class="sp">2 SP</span></div>
+    <div class="story-title">HomeScreen Integration — Wellness Score Widget</div>
+    <div class="story-statement">
+      As an athlete opening the app, I want to see my current wellness score on the HomeScreen without navigating away, so I get an immediate sense of my readiness.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I'm on the HomeScreen</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> I see a compact wellness card (below the existing fitness score card) showing: wellness score circle, recovery status icon, and "View Details →" link</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> tapping the card navigates to WellnessScreen</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> if no wellness data today, the card shows "Log your morning check-in →" as a CTA</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> data loads from <code>GET /athlete/{id}/wellness/score</code> on HomeScreen mount</div>
+    </div>
+    <div class="tech-note">
+      <strong>File:</strong> Modify existing src/screens/HomeScreen.js<br>
+      <strong>Placement:</strong> Add below the existing fitness score card, above the daily tracker section.
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Verify widget loads without blocking rest of HomeScreen (async). Test with no data → CTA shown. Verify navigation to WellnessScreen works. Verify no layout shift on load.</div>
+  </div>
+
+  <!-- WN-25 -->
+  <div class="story-card">
+    <div class="story-id">WN-25 &nbsp; <span class="sp">2 SP</span></div>
+    <div class="story-title">Hydration Quick-Log — From Daily Tracker</div>
+    <div class="story-statement">
+      As an athlete, I want to quickly add water intake from the existing daily tracker on HomeScreen by tapping the water row, so I can track hydration throughout the day without opening the full wellness form.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I tap the water row on the existing daily tracker (HomeScreen)</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> a bottom sheet opens with quick-add buttons: +250ml, +500ml, +1L, and a custom input</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> each tap immediately updates the hydration in today's wellness entry (PATCH-like: calls <code>POST /athlete/{id}/wellness</code> with only <code>hydration.water_ml</code> updated)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> the daily tracker row updates in real-time showing current ml / target ml</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> the target is computed from body weight × 35 (or 3000ml default if no weight logged)</div>
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Tap +250ml three times → verify 750ml shows. Verify partial update doesn't overwrite other wellness fields. Verify target computation with and without body weight.</div>
+  </div>
+</div>
+
+<div class="divider page-break"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 11. EPIC 5 — WELLNESS ANALYTICS (FRONTEND) -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="epic5">
+  <div class="section-header">Section 11 — Epic 5</div>
+  <h2>Wellness Analytics Dashboard <span class="tag tag-frontend">Frontend</span> <span class="tag tag-priority-med">P1 — Should Have</span></h2>
+  <p><strong>Assigned to: Dev 5</strong> &nbsp;|&nbsp; Blocked by: WN-14 (Dev 2's team overview API)</p>
+
+  <!-- WN-26 -->
+  <div class="story-card">
+    <div class="story-id">WN-26 &nbsp; <span class="sp">5 SP</span></div>
+    <div class="story-title">Wellness Analytics Page — Coach Dashboard</div>
+    <div class="story-statement">
+      As a coach, I want a web dashboard page showing all my athletes' wellness scores, recovery statuses, and nutrition compliance in one view, so I can prepare for today's training session.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I navigate to <code>/wellness</code> on the frontend</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> I see a summary bar: avg wellness score, ready/caution/rest counts, total athletes</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> below it, a table of all athletes sorted worst-first: Name, Wellness Score (color-coded), Recovery Status (badge), Sleep Score, Hydration %, Last Logged date</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> clicking an athlete row expands to show their wellness breakdown and 7-day trend sparkline</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> athletes with no data in 3+ days are highlighted with a "No Data" warning badge</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> the page auto-refreshes every 60 seconds</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> data loads from <code>GET /wellness/team-overview</code> (proxied via Express)</div>
+    </div>
+    <div class="tech-note">
+      <strong>New file:</strong> views/wellness.ejs<br>
+      <strong>Route:</strong> Add GET /wellness route in server.js following dashboard.ejs pattern<br>
+      <strong>Proxy:</strong> Add /api/wellness/* proxy in server.js<br>
+      <strong>Charts:</strong> Use Chart.js (already in dashboard.ejs) for sparklines
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Verify proxy route works (no CORS issues). Verify sort order (worst first). Verify auto-refresh doesn't cause flicker. Test with 0 athletes having data → graceful empty state. Verify dark theme consistency with existing dashboard.ejs.</div>
+  </div>
+
+  <!-- WN-27 -->
+  <div class="story-card">
+    <div class="story-id">WN-27 &nbsp; <span class="sp">3 SP</span></div>
+    <div class="story-title">Nutrition Compliance View — Team Nutrition Summary</div>
+    <div class="story-statement">
+      As a coach, I want to see which athletes are hitting their nutrition goals and which are falling short, so I can intervene with dietary guidance.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I'm on the wellness dashboard</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> I see a "Nutrition" tab/section showing per-athlete: calories consumed vs goal (as % bar), protein compliance, meals logged today</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> athletes below 60% of calorie goal are flagged yellow; below 40% flagged red</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> a team average nutrition compliance percentage is shown at the top</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> data comes from iterating athletes and calling <code>/athlete/{id}/nutrition/summary</code> (server-side aggregation preferred)</div>
+    </div>
+    <div class="tech-note">
+      <strong>Note:</strong> Since there's no batch nutrition API, Dev 5 should coordinate with Dev 1 to consider adding a <code>/nutrition/team-summary</code> endpoint if iterating 30 athletes client-side is too slow. Fallback: server-side render in Express route handler.
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Test with athletes who have 0 meals → shows 0%. Verify color thresholds (60%, 40%). Verify no N+1 API call problem on the frontend.</div>
+  </div>
+
+  <!-- WN-28 -->
+  <div class="story-card">
+    <div class="story-id">WN-28 &nbsp; <span class="sp">3 SP</span></div>
+    <div class="story-title">Wellness Trends Chart — Team-Level Weekly Graph</div>
+    <div class="story-statement">
+      As a coach, I want to see a line chart of team average wellness score over the past 4 weeks, so I can tell if the team is peaking, recovering, or declining heading into competition.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I'm on the wellness dashboard</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> I see a Chart.js line chart with 4 data points (weekly averages) for team wellness score</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> a secondary line showing team average sleep score</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> the chart has a horizontal reference line at 70 (the "ready" threshold)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> chart styling matches existing dashboard.ejs: dark bg, cyan/green lines, white labels</div>
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Verify chart renders with partial data. Verify axis labels are readable. Verify 70-threshold line is visible. Test with all data above 70 → no false alarm visually.</div>
+  </div>
+
+  <!-- WN-29 -->
+  <div class="story-card">
+    <div class="story-id">WN-29 &nbsp; <span class="sp">2 SP</span></div>
+    <div class="story-title">Correlation Insights Panel — Performance Connection</div>
+    <div class="story-statement">
+      As a coach, I want to see the top wellness-performance correlations across the team, so I can decide what to emphasize (better sleep? more water? less stress?).
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I'm on the wellness dashboard</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> I see an "Insights" panel showing the top 3 wellness-performance correlations across all athletes with sufficient data</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> each insight is a natural language card: "Athletes who slept 7+ hours scored 12% higher on form" with the correlation strength (strong/moderate/weak)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> insights are aggregated: look at the most common strong correlations across athletes</div>
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Verify insights are based on real data, not hardcoded. Test with insufficient data → "Not enough data for insights" message. Verify correlation labels match the r values.</div>
+  </div>
+
+  <!-- WN-30 -->
+  <div class="story-card">
+    <div class="story-id">WN-30 &nbsp; <span class="sp">2 SP</span></div>
+    <div class="story-title">Navigation Update — Add Wellness Link to Frontend</div>
+    <div class="story-statement">
+      As a coach navigating the web dashboard, I want a "Wellness" link in the navigation bar alongside the existing Dashboard and Map links, so I can quickly switch between views.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I'm on any page of the frontend</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> the navigation bar shows: Home | Dashboard | <strong>Wellness</strong> | Map</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> the active page link is highlighted with the accent color (#06b6d4)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> the nav link works on all existing pages (index, dashboard, map, wellness)</div>
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Verify nav appears on all 4 pages. Verify active state styling. Verify no broken links.</div>
+  </div>
+</div>
+
+<div class="divider page-break"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 12. EPIC 6 — INTEGRATION & QA -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="epic6">
+  <div class="section-header">Section 12 — Epic 6</div>
+  <h2>Integration, Seed Data &amp; QA <span class="tag tag-integration">Integration</span> <span class="tag tag-priority-high">P0 — Must Have</span></h2>
+  <p><strong>Assigned to: Dev 6</strong> &nbsp;|&nbsp; Start Mon 7 Apr (seed scripts), QA Wed–Sun</p>
+
+  <!-- WN-31 -->
+  <div class="story-card">
+    <div class="story-id">WN-31 &nbsp; <span class="sp">3 SP</span></div>
+    <div class="story-title">Seed Foods Database — 200+ Indian &amp; Global Foods</div>
+    <div class="story-statement">
+      As a developer testing the nutrition feature, I need a pre-populated food database with realistic nutritional values, so that the search and meal logging APIs have data to work with from day one.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I run <code>python seed_foods.py</code></div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> <code>db/foods.json</code> is created with 200+ food entries</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> distribution: 120+ Indian foods across breakfast/lunch/dinner/snack, 40+ protein sources, 20+ fruits, 20+ beverages</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> every entry has realistic nutritional values per 100g (cross-referenced with IFCT 2017)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> the script is idempotent — re-running overwrites cleanly</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> foods include common athlete-specific items: whey protein, protein bar, banana, peanut butter, oats, eggs, chicken breast, paneer, soya chunks, sprouts, sattu, ragi malt</div>
+    </div>
+    <div class="tech-note">
+      <strong>New file:</strong> personal-health-backend/seed_foods.py<br>
+      <strong>Pattern:</strong> Follow seed_athletes.py structure. Write to db/foods.json using json.dump with indent=2.
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Spot-check 10 foods against IFCT/Google nutrition data. Verify no duplicate food_ids. Verify all categories are represented. Run twice → same output.</div>
+  </div>
+
+  <!-- WN-32 -->
+  <div class="story-card">
+    <div class="story-id">WN-32 &nbsp; <span class="sp">3 SP</span></div>
+    <div class="story-title">Seed Nutrition Logs — 90 Days of Meal History</div>
+    <div class="story-statement">
+      As a developer testing nutrition analytics, I need realistic meal history for all 30 athletes over 90 days, so that summary, goals, and trend APIs return meaningful data.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I run <code>python seed_nutrition.py</code> (after seed_foods.py and seed_athletes.py)</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> <code>db/nutrition.json</code> is created with meal logs for all 30 athletes</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> each athlete has 60–80 days of logs out of 90 (realistic: athletes don't log every day)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> each logged day has 2–4 meal slots filled with 1–3 food items each</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> food items are randomly selected from db/foods.json with realistic quantities (100–400g)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> calories and macros are computed correctly from per_100g × qty</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> higher-tier athletes (State/National/Elite) show higher protein intake and better meal consistency</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> default goals are set for each athlete based on their sport</div>
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Verify calorie math for 5 random meals. Verify Elite athletes eat more protein than Block athletes on average. Verify not all athletes have identical meal patterns. Check file size is reasonable (<5MB).</div>
+  </div>
+
+  <!-- WN-33 -->
+  <div class="story-card">
+    <div class="story-id">WN-33 &nbsp; <span class="sp">3 SP</span></div>
+    <div class="story-title">Seed Wellness History — 90 Days of Wellness Data</div>
+    <div class="story-statement">
+      As a developer testing wellness analytics, I need realistic wellness logs for all 30 athletes over 90 days, with proper score distributions and trends.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I run <code>python seed_wellness.py</code> (after seed_athletes.py)</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> <code>db/wellness.json</code> is created with wellness entries for all 30 athletes</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> each athlete has 70–85 days of logs out of 90</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> sleep duration ranges 5–9 hrs with a mean of 7; quality 1–5</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> hydration ranges 1000–4000ml with higher values for athletes who train that day</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> mood, stress, energy, soreness have realistic distributions (not all 5s or all 10s)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> wellness_score is computed using the same formula as WN-08</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> higher-tier athletes have slightly better wellness scores on average (discipline correlation)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> some athletes show a multi-week improving trend, others declining, others stable — for testing trend detection</div>
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Verify wellness_score matches the formula when manually computed for 3 entries. Verify at least one athlete has a clearly improving trend. Verify at least one has a declining trend. Verify sleep duration computation handles midnight crossing.</div>
+  </div>
+
+  <!-- WN-34 -->
+  <div class="story-card">
+    <div class="story-id">WN-34 &nbsp; <span class="sp">5 SP</span></div>
+    <div class="story-title">End-to-End Integration Testing</div>
+    <div class="story-statement">
+      As the team, we need a test script that validates the full nutrition + wellness pipeline end-to-end, so that we catch integration issues before merging.
+    </div>
+    <div class="ac-block">
+      <div class="ac-title">Acceptance Criteria</div>
+      <div class="ac-item"><span class="ac-keyword">Given</span> I run <code>python test_wellness_e2e.py</code> with the backend server running</div>
+      <div class="ac-item"><span class="ac-keyword">Then</span> the script tests these flows sequentially:</div>
+      <div class="ac-item" style="padding-left: 20px;">1. Search food → verify results contain expected foods</div>
+      <div class="ac-item" style="padding-left: 20px;">2. Log a meal → verify it's saved → get nutrition summary → verify totals</div>
+      <div class="ac-item" style="padding-left: 20px;">3. Delete a meal → verify summary updates</div>
+      <div class="ac-item" style="padding-left: 20px;">4. Set nutrition goals → verify goals persist → verify summary includes pct_of_goal</div>
+      <div class="ac-item" style="padding-left: 20px;">5. Log wellness entry → verify wellness score is computed → verify recovery status</div>
+      <div class="ac-item" style="padding-left: 20px;">6. Query wellness trends → verify structure</div>
+      <div class="ac-item" style="padding-left: 20px;">7. Query team overview → verify all athletes appear</div>
+      <div class="ac-item" style="padding-left: 20px;">8. Query correlations → verify response (may return insufficient data, that's OK)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> each test prints PASS/FAIL with the endpoint tested</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> uses only <code>requests</code> library (already in requirements.txt)</div>
+      <div class="ac-item"><span class="ac-keyword">And</span> cleans up test data after run (delete test meals, wellness entries)</div>
+    </div>
+    <div class="tech-note">
+      <strong>New file:</strong> personal-health-backend/test_wellness_e2e.py<br>
+      <strong>Test athlete:</strong> Use athlete_01 (always exists after seed). Create test-specific meals with recognizable names so cleanup is easy.
+    </div>
+    <div class="peer-review"><strong>Raj's Review Checklist:</strong> Run the script end-to-end. Verify all 8 tests pass. Verify cleanup removes test data. Run twice to confirm idempotency.</div>
+  </div>
+</div>
+
+<div class="divider page-break"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 13. BROWNIE FEATURES -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="brownie">
+  <div class="section-header">Section 13</div>
+  <h2>Brownie Features — Deeper Product Scope <span class="tag tag-brownie">Bonus</span></h2>
+  <p>These are <strong>not required</strong> for this sprint but are logical extensions that would differentiate the product. If a dev finishes early, these are the stretch goals — pick one, scope it, and propose it in standup.</p>
+
+  <div class="card">
+    <h4 style="color: var(--yellow); margin-bottom: 6px;">BF-01: AI Meal Suggestions Based on Training Load</h4>
+    <p>When an athlete has a session scheduled or completed, suggest meals that match their caloric needs for that day. E.g., "You burned ~450 cal in your sprint session. Consider adding a protein-rich snack: paneer tikka (280 cal, 22g protein)."</p>
+    <p><strong>Why it matters:</strong> Closes the loop between training and nutrition — no other Indian sports app does this.</p>
+    <p><strong>Technical scope:</strong> New endpoint <code>/athlete/{id}/nutrition/suggestions</code> that reads today's session data + nutrition summary + goals → generates 2–3 food suggestions from db/foods.json.</p>
+  </div>
+
+  <div class="card">
+    <h4 style="color: var(--yellow); margin-bottom: 6px;">BF-02: Meal Photo Logging (Camera → Approximate Calories)</h4>
+    <p>Athletes take a photo of their plate. The backend uses a simple heuristic (or future ML model) to estimate the food type and portion. MVP: just attach the photo to the meal log entry for coach review.</p>
+    <p><strong>Why it matters:</strong> Reduces logging friction from 30 seconds to 5 seconds. Photos create a richer dataset for future food recognition ML.</p>
+    <p><strong>Technical scope:</strong> Use expo-camera to capture, upload base64 to <code>POST /athlete/{id}/meals</code> with an optional <code>photo_b64</code> field. Store as reference — no ML needed for MVP.</p>
+  </div>
+
+  <div class="card">
+    <h4 style="color: var(--yellow); margin-bottom: 6px;">BF-03: Hydration Reminders via Push Notifications</h4>
+    <p>If an athlete's hydration is below 50% of target by 2 PM, send a push notification: "You've had 1.2L of 3L today. Drink up!"</p>
+    <p><strong>Why it matters:</strong> Dehydration is the #1 preventable performance reducer in Indian climate. Proactive nudges drive habit formation.</p>
+    <p><strong>Technical scope:</strong> Expo push notifications + a lightweight cron/check on the backend.</p>
+  </div>
+
+  <div class="card">
+    <h4 style="color: var(--yellow); margin-bottom: 6px;">BF-04: Intermittent Fasting Tracker</h4>
+    <p>Some athletes follow 16:8 fasting. Track the eating window, show a countdown timer to next meal window, log fasting hours.</p>
+    <p><strong>Why it matters:</strong> Growing trend among amateur athletes. Differentiates from generic calorie counters.</p>
+    <p><strong>Technical scope:</strong> Add <code>fasting_config</code> to nutrition goals (window_start, window_end). Display timer on NutritionScreen.</p>
+  </div>
+
+  <div class="card">
+    <h4 style="color: var(--yellow); margin-bottom: 6px;">BF-05: Supplement Tracking</h4>
+    <p>Track daily supplement intake: whey protein, creatine, multivitamin, BCAA, etc. Show compliance streaks.</p>
+    <p><strong>Why it matters:</strong> Athletes spend ₹1,000–3,000/month on supplements but don't track consistency. Coaches want to know if athletes are actually taking what's prescribed.</p>
+    <p><strong>Technical scope:</strong> New section in wellness log. Simple checkbox list per day with pre-configured supplement list.</p>
+  </div>
+
+  <div class="card">
+    <h4 style="color: var(--yellow); margin-bottom: 6px;">BF-06: Sleep Quality Prediction</h4>
+    <p>After 30+ days of data, predict tonight's expected sleep quality based on today's training load, stress, and caffeine intake. "Based on your hard session and stress level, you might sleep poorly tonight. Consider winding down early."</p>
+    <p><strong>Why it matters:</strong> Proactive coaching is more valuable than reactive logging. This turns data into foresight.</p>
+    <p><strong>Technical scope:</strong> Simple linear model in wellness_engine.py using historical patterns.</p>
+  </div>
+
+  <div class="card">
+    <h4 style="color: var(--yellow); margin-bottom: 6px;">BF-07: Wellness Streaks &amp; Achievements</h4>
+    <p>Track consecutive days of wellness logging. Unlock achievements: "7-Day Streak", "30-Day Warrior", "Hydration Hero (hit target 7 days straight)." Feed into the existing XP/achievement system in UserContext.js.</p>
+    <p><strong>Why it matters:</strong> Gamification drives daily engagement. The hardest part of wellness tracking is building the habit — streaks help.</p>
+    <p><strong>Technical scope:</strong> Computed server-side when wellness entry is saved. Add to existing achievement system.</p>
+  </div>
+
+  <div class="card">
+    <h4 style="color: var(--yellow); margin-bottom: 6px;">BF-08: Recipe Suggestions Based on Dietary Preferences</h4>
+    <p>If an athlete is vegetarian and low on protein, suggest recipes: "Try paneer bhurji (32g protein per serving) or sprouted moong salad (18g)." Link to a simple recipe view with ingredients and prep steps.</p>
+    <p><strong>Why it matters:</strong> Most Indian athletes are vegetarian and struggle with protein. Context-aware suggestions solve a real problem.</p>
+    <p><strong>Technical scope:</strong> Add a <code>recipes</code> field to foods.json with 20–30 high-protein Indian recipes. New endpoint <code>/foods/recipes?tag=high-protein&cuisine=indian</code>.</p>
+  </div>
+</div>
+
+<div class="divider page-break"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 14. PM & ANALYTICS PLAYBOOK -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="pm">
+  <div class="section-header">Section 14</div>
+  <h2>PM &amp; Analytics Playbook <span class="tag tag-pm">Product</span> <span class="tag tag-analytics">Analytics</span></h2>
+  <p>This isn't just for developers. Here's what <strong>I (Adhik) and the PM side</strong> need to track, measure, and decide on during and after this sprint.</p>
+
+  <h3>Success Metrics — How We Know This Sprint Worked</h3>
+  <div class="card">
+    <table>
+      <tr><th>Metric</th><th>Target</th><th>How to Measure</th><th>Why It Matters</th></tr>
+      <tr><td><strong>Daily Active Loggers</strong></td><td>40% of athletes log wellness 5+ days/week</td><td>Count distinct athlete_ids in db/wellness.json with entries in current week</td><td>Wellness only works with consistent data. Below 40% = the UX is too friction-heavy.</td></tr>
+      <tr><td><strong>Meal Logging Rate</strong></td><td>30% of athletes log 2+ meals/day</td><td>Count meals per athlete per day from db/nutrition.json</td><td>Nutrition insights are garbage with 1 meal/day. Need at least 2 for meaningful calorie tracking.</td></tr>
+      <tr><td><strong>Time-to-Log (Meal)</strong></td><td>&lt; 30 seconds per meal</td><td>Timestamp diff between MealLogScreen open and POST success (client-side event)</td><td>If it takes > 30s, athletes will stop. This is the critical UX metric.</td></tr>
+      <tr><td><strong>Wellness Score Adoption</strong></td><td>60% of athletes check wellness score before training</td><td>Count GET /athlete/{id}/wellness/score calls between 5 AM – 10 AM</td><td>The wellness score only reduces injuries if athletes see it before training, not after.</td></tr>
+      <tr><td><strong>Recovery Override Rate</strong></td><td>&lt; 15% of athletes train when status is "rest"</td><td>Compare recovery_ready=false entries with same-day sessions in db/sessions.json</td><td>If athletes ignore "rest" recommendations, either the score is miscalibrated or the UI isn't compelling.</td></tr>
+      <tr><td><strong>Correlation Data Sufficiency</strong></td><td>10+ athletes have 10+ matched wellness-session pairs</td><td>Count athletes where correlations endpoint returns data (not "insufficient")</td><td>The correlation feature is the differentiator. Need enough data to power it.</td></tr>
+    </table>
+  </div>
+
+  <h3>Data Analytics — What to Build Into Tracking</h3>
+  <div class="card">
+    <h4 style="color: var(--cyan); margin-bottom: 10px;">Event Tracking (Add to Android App)</h4>
+    <ul>
+      <li><code>screen_view: {screen: "NutritionScreen"}</code> — track how often athletes visit nutrition</li>
+      <li><code>meal_logged: {slot, food_count, time_to_log_ms}</code> — track logging speed and completeness</li>
+      <li><code>wellness_logged: {fields_filled, time_to_log_ms}</code> — track which fields athletes skip</li>
+      <li><code>wellness_score_viewed: {score, recovery_status, hour_of_day}</code> — track morning check-in behavior</li>
+      <li><code>food_search: {query, results_count, selected_food_id}</code> — track search effectiveness</li>
+      <li><code>quick_add_used: {slot, items_count}</code> — track if quick-add reduces friction</li>
+      <li><code>goal_set: {type: "nutrition"|"wellness"}</code> — track goal-setting engagement</li>
+    </ul>
+    <p style="margin-top: 12px; color: var(--text-muted); font-size: 12px;"><strong>Implementation note:</strong> For this sprint, log events to console.log with a <code>[ANALYTICS]</code> prefix. Formal analytics (Mixpanel/Amplitude) is a post-sprint concern. The important thing is identifying WHAT to track now so we don't have to retrofit.</p>
+  </div>
+
+  <div class="card">
+    <h4 style="color: var(--purple); margin-bottom: 10px;">Product Decisions That Depend on Data</h4>
+    <table>
+      <tr><th>Decision</th><th>Data Needed</th><th>When</th></tr>
+      <tr><td>Should we add meal photo logging (BF-02)?</td><td>If time-to-log > 30s AND meal logging rate < 30%, photo logging could reduce friction</td><td>14 Apr onwards</td></tr>
+      <tr><td>Is the wellness score formula calibrated?</td><td>Compare recovery_ready=false with actual session form scores. If athletes with "rest" status have normal form scores, the score is too conservative</td><td>May 2026 (need data)</td></tr>
+      <tr><td>Should we prioritize correlations or coaching notes?</td><td>If 10+ athletes have sufficient correlation data AND coaches use the insights panel, correlations first. If not, LLM coaching notes may provide more value sooner</td><td>May 2026</td></tr>
+      <tr><td>Which brownie feature to build next?</td><td>Track which features athletes ask about in feedback. If "suggest what to eat" comes up in 5+ user interviews, prioritize BF-01</td><td>After first huddle (post 13 Apr)</td></tr>
+    </table>
+  </div>
+
+  <h3>Positioning Statement — Wellness Module</h3>
+  <div class="card" style="border-left: 4px solid var(--purple);">
+    <p style="font-size: 15px; line-height: 1.8;">
+      <strong>For</strong> young Indian athletes who train without a nutritionist,<br>
+      <strong>Personal Health Wellness</strong> is a phone-first wellness tracker<br>
+      <strong>that</strong> combines nutrition logging, sleep analysis, and recovery scoring with training performance data<br>
+      <strong>so that</strong> every morning, you know whether to push hard or rest — and every meal, you know if you're fueling your goals or undermining them.
+    </p>
+    <p style="margin-top: 12px; color: var(--text-muted);">
+      <strong>Unlike</strong> MyFitnessPal or HealthifyMe, which are generic calorie counters with Western food databases,<br>
+      <strong>Personal Health</strong> knows Indian food natively, connects nutrition to your actual form scores, and gives you a single wellness number that means something to an athlete — not just a consumer.
+    </p>
+  </div>
+
+  <h3>Opportunity Solution Tree — What We Chose and Why</h3>
+  <div class="card">
+    <table>
+      <tr><th>Opportunity</th><th>Solution Chosen</th><th>Alternatives Considered</th><th>Why This One</th></tr>
+      <tr><td>Athletes don't know if they're eating right</td><td>Indian-first food DB + fast meal logging</td><td>Integration with external nutrition API (Nutritionix), AI food recognition from photos</td><td>External APIs don't have Indian food. Photo recognition is a 3-month project. A curated local DB gives 80% value with 20% effort.</td></tr>
+      <tr><td>Athletes can't connect wellness to performance</td><td>Wellness-performance correlation engine</td><td>Manual coach notes, generic wellness tips, LLM-generated insights</td><td>Correlation engine is data-driven and gets better with more sessions. LLM insights are impressive but not grounded in the athlete's own data yet.</td></tr>
+      <tr><td>Coaches don't know who's ready to train</td><td>Team wellness overview dashboard</td><td>WhatsApp group check-ins, paper-based readiness forms</td><td>Digital dashboard scales to 30 athletes. WhatsApp doesn't. Paper gets lost. Coach needs this before the session, not during.</td></tr>
+      <tr><td>Athletes don't log consistently</td><td>Quick-add meals + pre-filled wellness defaults + wellness streaks (brownie)</td><td>Mandatory logging before session access, gamified challenges</td><td>Friction reduction beats forced compliance. Defaults + quick-add make logging feel effortless.</td></tr>
+    </table>
+  </div>
+
+  <h3>Roadmap Context — Where This Sprint Fits</h3>
+  <div class="card">
+    <table>
+      <tr><th>Milestone</th><th>Description</th><th>Status</th></tr>
+      <tr><td>M1: Working Demo</td><td>App → form score in &lt;60s</td><td style="color: var(--green);">Done</td></tr>
+      <tr><td>M2: First Huddle</td><td>15+ athletes, 150+ sessions</td><td style="color: var(--yellow);">In Progress (have 30 seeded, need real)</td></tr>
+      <tr><td style="color: var(--cyan);"><strong>→ This Sprint</strong></td><td style="color: var(--cyan);"><strong>Wellness &amp; Nutrition module live</strong></td><td style="color: var(--cyan);"><strong>Active</strong></td></tr>
+      <tr><td>M3: First Retrain</td><td>500+ real sessions, model beats synthetic</td><td style="color: var(--text-muted);">Blocked (need real data)</td></tr>
+      <tr><td>M4: First Coaching Note</td><td>LLM + session + wellness summary</td><td style="color: var(--text-muted);">Planned (post-wellness)</td></tr>
+      <tr><td>M5: First Revenue</td><td>₹199/mo subscription live</td><td style="color: var(--text-muted);">Planned</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="divider page-break"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 15. UI/UX DESIGN SYSTEM -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="uiux">
+  <div class="section-header">Section 15</div>
+  <h2>UI/UX Design System Guidelines <span class="tag tag-android">Android</span> <span class="tag tag-frontend">Frontend</span></h2>
+  <p>From <code>ui-ux-pro-max-skill</code> — these rules apply to all UI work this sprint:</p>
+
+  <div class="card">
+    <h4 style="color: var(--cyan); margin-bottom: 10px;">Design Tokens (Mandatory)</h4>
+    <table>
+      <tr><th>Token</th><th>Value</th><th>Usage</th></tr>
+      <tr><td><code>bg-primary</code></td><td><code>#0a0e1a</code></td><td>Screen background</td></tr>
+      <tr><td><code>bg-card</code></td><td><code>#111827</code></td><td>Card surfaces</td></tr>
+      <tr><td><code>bg-card-alt</code></td><td><code>#1a2235</code></td><td>Elevated card surfaces</td></tr>
+      <tr><td><code>accent</code></td><td><code>#06b6d4</code></td><td>Primary action, links, progress rings</td></tr>
+      <tr><td><code>text-primary</code></td><td><code>#f1f5f9</code></td><td>Headings, primary text</td></tr>
+      <tr><td><code>text-secondary</code></td><td><code>#94a3b8</code></td><td>Body text, descriptions</td></tr>
+      <tr><td><code>text-muted</code></td><td><code>#64748b</code></td><td>Placeholders, timestamps</td></tr>
+      <tr><td><code>success</code></td><td><code>#10b981</code></td><td>Ready status, goals met, positive trends</td></tr>
+      <tr><td><code>warning</code></td><td><code>#f59e0b</code></td><td>Caution status, approaching limits</td></tr>
+      <tr><td><code>danger</code></td><td><code>#ef4444</code></td><td>Rest status, exceeded limits, errors</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h4 style="color: var(--purple); margin-bottom: 10px;">Mobile UI Rules (from UI/UX Pro Max)</h4>
+    <ul>
+      <li><strong>No emojis as structural icons.</strong> Use <code>@expo/vector-icons</code> (Ionicons, MaterialIcons) for all icons. Emojis are OK in journal notes or user-generated content, never in navigation or status indicators.</li>
+      <li><strong>Touch targets:</strong> Minimum 44×44pt for all tappable elements. Use <code>hitSlop</code> if the visual element is smaller.</li>
+      <li><strong>Tap feedback:</strong> Every button/pressable must have opacity feedback (0.7 on press). Use <code>Pressable</code> with <code>style={({pressed}) => ...}</code> pattern.</li>
+      <li><strong>Spacing rhythm:</strong> Use 4/8/12/16/24/32 px increments. No arbitrary spacing values.</li>
+      <li><strong>Safe areas:</strong> Respect top/bottom safe areas. Use <code>SafeAreaView</code> or <code>useSafeAreaInsets()</code> on all screens.</li>
+      <li><strong>Animation timing:</strong> Micro-interactions 150–300ms with ease-out easing. No instant transitions, no slow animations (>500ms).</li>
+      <li><strong>Text contrast:</strong> Primary text >= 4.5:1 ratio against dark backgrounds (our palette already meets this).</li>
+      <li><strong>Disabled states:</strong> Use 40% opacity + non-interactive for disabled buttons. Never use a grayed-out button that still responds to taps.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h4 style="color: var(--green); margin-bottom: 10px;">Component Patterns to Follow</h4>
+    <ul>
+      <li><strong>Progress rings:</strong> Use <code>react-native-svg</code> with <code>Circle</code> + <code>strokeDasharray</code>/<code>strokeDashoffset</code>. See MetricsScreen.js spider chart for existing SVG usage.</li>
+      <li><strong>Cards:</strong> <code>borderRadius: 12</code>, <code>padding: 16</code>, <code>backgroundColor: '#111827'</code>, <code>borderWidth: 1</code>, <code>borderColor: '#1e293b'</code>.</li>
+      <li><strong>Section headers:</strong> 11px, uppercase, letter-spacing 1.5, color <code>#06b6d4</code> — matching existing MetricsScreen.js pattern.</li>
+      <li><strong>Loading states:</strong> Use <code>ActivityIndicator</code> with color <code>#06b6d4</code>. Never show a blank screen while loading.</li>
+      <li><strong>Error states:</strong> Show error message in a card with <code>#ef4444</code> border-left. Include a "Retry" button.</li>
+      <li><strong>Empty states:</strong> Centered illustration text + CTA button. Never show a blank screen.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h4 style="color: var(--orange); margin-bottom: 10px;">Frontend (EJS) Design Rules</h4>
+    <ul>
+      <li>Follow existing <code>dashboard.ejs</code> layout and CSS patterns exactly. No new color palette.</li>
+      <li>Charts use Chart.js with dark theme: <code>backgroundColor: '#0a0e1a'</code>, grid lines <code>#1e293b</code>, data lines <code>#06b6d4</code>.</li>
+      <li>Tables: zebra striping with <code>#111827</code> / <code>#1a2235</code> alternating rows.</li>
+      <li>Auto-refresh: Use <code>setInterval</code> with <code>fetch()</code>, not full page reload. Update DOM elements directly.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 16. CODE REVIEW PROTOCOL -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="review">
+  <div class="section-header">Section 16</div>
+  <h2>Code Review &amp; Peer Testing Protocol</h2>
+
+  <div class="card">
+    <h4 style="color: var(--cyan); margin-bottom: 10px;">PR Requirements — Every PR Must Have:</h4>
+    <ol>
+      <li><strong>Story ID</strong> in the PR title: e.g., <code>[WN-03] Meal logging — create and read meal entries</code></li>
+      <li><strong>Acceptance criteria checklist</strong> in the PR description — copy from this doc, check each one off</li>
+      <li><strong>No hardcoded IPs</strong> — grep the diff for <code>192.168</code>, <code>localhost:8082</code>, <code>10.0.</code></li>
+      <li><strong>_save_db() used</strong> for all JSON writes (never direct <code>json.dump</code>)</li>
+      <li><strong>Tested with at least 2 athlete IDs</strong> — not just athlete_01</li>
+      <li><strong>Edge cases documented</strong> — what happens with empty data? Invalid IDs? Duplicate entries?</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h4 style="color: var(--yellow); margin-bottom: 10px;">Raj Shukla's Peer Review Responsibilities</h4>
+    <p>Raj — you're the quality gate for this sprint. Here's your playbook:</p>
+    <ol>
+      <li><strong>Read the story card first.</strong> Understand what the feature is supposed to do before reading code.</li>
+      <li><strong>Walk through acceptance criteria line by line.</strong> Each criterion gets a PASS or FAIL. If FAIL, comment exactly which criterion failed and why.</li>
+      <li><strong>Check the "Raj's Review Checklist"</strong> at the bottom of each story card — those are specific test cases I want you to verify.</li>
+      <li><strong>Run the code locally.</strong> Don't just read the diff — hit the API with curl, open the screen on your phone, verify it works.</li>
+      <li><strong>Check for regressions.</strong> After merging a PR, verify existing features still work (leaderboard, daily tracker, sessions).</li>
+      <li><strong>Flag, don't fix.</strong> If you find an issue, comment on the PR. Don't fix it yourself — that's the dev's responsibility.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h4 style="color: var(--green); margin-bottom: 10px;">Testing Priority</h4>
+    <table>
+      <tr><th>Priority</th><th>What to Test</th><th>When</th></tr>
+      <tr><td>P0</td><td>API response shapes match the spec in this doc</td><td>Every backend PR</td></tr>
+      <tr><td>P0</td><td>No data corruption — _save_db() doesn't overwrite unrelated athlete data</td><td>Every backend PR</td></tr>
+      <tr><td>P1</td><td>Android screens render without crash on Expo Go</td><td>Every Android PR</td></tr>
+      <tr><td>P1</td><td>Empty states and error states render correctly</td><td>Every UI PR</td></tr>
+      <tr><td>P2</td><td>Performance — API response under 200ms, screen render under 1s</td><td>Weekly spot check</td></tr>
+      <tr><td>P2</td><td>Edge cases — midnight sleep, 0 meals, new athlete with no history</td><td>Before sprint close</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 17. RISKS -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="risks">
+  <div class="section-header">Section 17</div>
+  <h2>Risks &amp; Dependencies</h2>
+
+  <div class="card">
+    <table>
+      <tr><th>Risk</th><th>Impact</th><th>Mitigation</th></tr>
+      <tr><td>Dev 3 &amp; Dev 4 (Android) are blocked until Dev 1 &amp; Dev 2 deliver APIs</td><td>Android work can't start without working backend</td><td>Dev 1 &amp; Dev 2 deliver API stubs (hardcoded responses) by end of Tue 8 Apr. Android devs code against stubs, swap to real APIs when ready.</td></tr>
+      <tr><td>db/nutrition.json grows too large with 30 athletes × 90 days × 4 meals</td><td>Slow reads, memory pressure on low-end servers</td><td>Monitor file size. If > 10MB, consider splitting into per-athlete files (db/nutrition/athlete_01.json). Not needed for sprint but keep it in mind.</td></tr>
+      <tr><td>Wellness score formula may be poorly calibrated</td><td>Athletes ignore "rest" recommendations because they feel fine</td><td>Log recovery overrides (athlete trains despite "rest" status). Recalibrate weights after 30 days of data.</td></tr>
+      <tr><td>Food database nutritional values may be inaccurate</td><td>Athletes make decisions based on wrong calorie counts</td><td>Use IFCT 2017 as primary source. Add a disclaimer: "Nutritional values are approximate." Allow user feedback on food data in a future sprint.</td></tr>
+      <tr><td>Scope creep — devs add brownie features without finishing core stories</td><td>Core sprint incomplete</td><td>All 34 core stories must be DONE before any brownie feature work. No exceptions. I'll check in standup daily.</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 18. DEFINITION OF DONE -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="defs">
+  <div class="section-header">Section 18</div>
+  <h2>Definition of Done</h2>
+
+  <div class="card">
+    <p>A user story is <strong>DONE</strong> when all of these are true:</p>
+    <ol style="line-height: 2;">
+      <li>All acceptance criteria pass (verified by Raj Shukla)</li>
+      <li>Code follows existing patterns (no new patterns without team consensus)</li>
+      <li>No hardcoded IPs, URLs, or magic numbers</li>
+      <li>All JSON writes use <code>_save_db()</code></li>
+      <li>Tested with at least 2 different athlete IDs</li>
+      <li>Empty state and error state handled</li>
+      <li>UI matches design tokens (colors, spacing, typography from Section 15)</li>
+      <li>PR approved by Raj Shukla</li>
+      <li>No console errors or warnings in the dev environment</li>
+      <li>Existing features still work after merge (regression check)</li>
+    </ol>
+  </div>
+
+  <div class="card" style="border-left: 4px solid var(--cyan); margin-top: 24px;">
+    <p style="font-size: 15px; color: var(--text-primary);">
+      <strong>Final note from Adhik:</strong> This sprint is about building the wellness foundation right, not fast. If you're unsure about something, ask in standup. If an acceptance criterion is ambiguous, flag it. If you think a story is scoped wrong, tell me — I'd rather adjust the sprint than ship broken code.
+    </p>
+    <p style="margin-top: 12px;">
+      The athletes who'll use this module don't have a nutritionist or a recovery coach. <strong>We're building that for them — through code.</strong> Let's make it count.
+    </p>
+    <p style="margin-top: 12px; color: var(--text-muted);">— Adhik Agarwal, Project Lead</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- APPENDIX: SPRINT SUMMARY TABLE -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">Appendix</div>
+  <h2>Complete Story Index</h2>
+  <table>
+    <tr><th>ID</th><th>Title</th><th>Dev</th><th>SP</th><th>Epic</th><th>Priority</th></tr>
+    <tr><td>WN-01</td><td>Food Database — Indian-First Food Reference</td><td>1</td><td>3</td><td>E1</td><td>P0</td></tr>
+    <tr><td>WN-02</td><td>Food Search API — Fuzzy Search</td><td>1</td><td>2</td><td>E1</td><td>P0</td></tr>
+    <tr><td>WN-03</td><td>Meal Logging — Create and Read</td><td>1</td><td>3</td><td>E1</td><td>P0</td></tr>
+    <tr><td>WN-04</td><td>Delete Meal Entry</td><td>1</td><td>2</td><td>E1</td><td>P0</td></tr>
+    <tr><td>WN-05</td><td>Daily Nutrition Summary</td><td>1</td><td>2</td><td>E1</td><td>P0</td></tr>
+    <tr><td>WN-06</td><td>Nutrition Goals — Set &amp; Retrieve</td><td>1</td><td>2</td><td>E1</td><td>P0</td></tr>
+    <tr><td>WN-07</td><td>Get Single Food Detail</td><td>1</td><td>1</td><td>E1</td><td>P0</td></tr>
+    <tr><td>WN-08</td><td>Enhanced Wellness Logging</td><td>2</td><td>3</td><td>E2</td><td>P0</td></tr>
+    <tr><td>WN-09</td><td>Wellness History — Date Range</td><td>2</td><td>2</td><td>E2</td><td>P0</td></tr>
+    <tr><td>WN-10</td><td>Wellness Score — Composite Endpoint</td><td>2</td><td>3</td><td>E2</td><td>P0</td></tr>
+    <tr><td>WN-11</td><td>Wellness Trends — Weekly/Monthly</td><td>2</td><td>3</td><td>E2</td><td>P0</td></tr>
+    <tr><td>WN-12</td><td>Recovery Readiness Indicator</td><td>2</td><td>2</td><td>E2</td><td>P0</td></tr>
+    <tr><td>WN-13</td><td>Wellness-Performance Correlations</td><td>2</td><td>3</td><td>E2</td><td>P0</td></tr>
+    <tr><td>WN-14</td><td>Team Wellness Overview (Coach API)</td><td>2</td><td>2</td><td>E2</td><td>P0</td></tr>
+    <tr><td>WN-15</td><td>Nutrition Screen — Daily Overview</td><td>3</td><td>5</td><td>E3</td><td>P0</td></tr>
+    <tr><td>WN-16</td><td>Meal Log Screen — Food Search &amp; Add</td><td>3</td><td>5</td><td>E3</td><td>P0</td></tr>
+    <tr><td>WN-17</td><td>Macro Progress Rings</td><td>3</td><td>3</td><td>E3</td><td>P0</td></tr>
+    <tr><td>WN-18</td><td>Quick Add — Shortcut for Common Meals</td><td>3</td><td>2</td><td>E3</td><td>P0</td></tr>
+    <tr><td>WN-19</td><td>Nutrition Goals Screen</td><td>3</td><td>2</td><td>E3</td><td>P0</td></tr>
+    <tr><td>WN-20</td><td>Wellness Screen — Morning Check-In</td><td>4</td><td>5</td><td>E4</td><td>P0</td></tr>
+    <tr><td>WN-21</td><td>Wellness Log Form — Input UI</td><td>4</td><td>5</td><td>E4</td><td>P0</td></tr>
+    <tr><td>WN-22</td><td>Sleep Detail Card — Expanded View</td><td>4</td><td>3</td><td>E4</td><td>P0</td></tr>
+    <tr><td>WN-23</td><td>Weekly Wellness Trend Sparkline</td><td>4</td><td>3</td><td>E4</td><td>P0</td></tr>
+    <tr><td>WN-24</td><td>HomeScreen Wellness Widget</td><td>4</td><td>2</td><td>E4</td><td>P0</td></tr>
+    <tr><td>WN-25</td><td>Hydration Quick-Log</td><td>4</td><td>2</td><td>E4</td><td>P0</td></tr>
+    <tr><td>WN-26</td><td>Wellness Analytics Page (Coach)</td><td>5</td><td>5</td><td>E5</td><td>P1</td></tr>
+    <tr><td>WN-27</td><td>Nutrition Compliance View</td><td>5</td><td>3</td><td>E5</td><td>P1</td></tr>
+    <tr><td>WN-28</td><td>Wellness Trends Chart (Team)</td><td>5</td><td>3</td><td>E5</td><td>P1</td></tr>
+    <tr><td>WN-29</td><td>Correlation Insights Panel</td><td>5</td><td>2</td><td>E5</td><td>P1</td></tr>
+    <tr><td>WN-30</td><td>Navigation Update — Wellness Link</td><td>5</td><td>2</td><td>E5</td><td>P1</td></tr>
+    <tr><td>WN-31</td><td>Seed Foods Database</td><td>6</td><td>3</td><td>E6</td><td>P0</td></tr>
+    <tr><td>WN-32</td><td>Seed Nutrition Logs — 90 Days</td><td>6</td><td>3</td><td>E6</td><td>P0</td></tr>
+    <tr><td>WN-33</td><td>Seed Wellness History — 90 Days</td><td>6</td><td>3</td><td>E6</td><td>P0</td></tr>
+    <tr><td>WN-34</td><td>End-to-End Integration Testing</td><td>6</td><td>5</td><td>E6</td><td>P0</td></tr>
+  </table>
+
+  <div class="metric-row" style="margin-top: 24px;">
+    <div class="metric-pill"><div class="num">34</div><div class="label">Total Stories</div></div>
+    <div class="metric-pill"><div class="num">97</div><div class="label">Total Story Points</div></div>
+    <div class="metric-pill"><div class="num">~16</div><div class="label">SP per Developer</div></div>
+    <div class="metric-pill"><div class="num">8</div><div class="label">Brownie Features</div></div>
+    <div class="metric-pill"><div class="num">6</div><div class="label">Success Metrics</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="footer">
+  <p><strong>Personal Health — Sprint W&N-01: Wellness &amp; Nutrition Module</strong></p>
+  <p>Document generated 7 April 2026 &nbsp;|&nbsp; Project Lead: Adhik Agarwal &nbsp;|&nbsp; Peer Reviewer: Raj Shukla</p>
+  <p style="margin-top: 8px;">
+    Skills used: <code>jobs-to-be-done</code> · <code>proto-persona</code> · <code>problem-statement</code> · <code>positioning-statement</code> · <code>opportunity-solution-tree</code> · <code>roadmap-planning</code> · <code>ui-ux-pro-max</code>
+  </p>
+</div>
+
+</div>
+</body>
+</html>
