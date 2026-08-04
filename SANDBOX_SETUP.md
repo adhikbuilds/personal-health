@@ -19,7 +19,7 @@ Expected output: `[INFO] api startup` on http://localhost:8082
 ```bash
 cd personal-health-frontend
 npm install
-npm run dev:server
+node server.js
 ```
 
 Expected output: Server listening on http://localhost:8083
@@ -28,8 +28,8 @@ Expected output: Server listening on http://localhost:8083
 
 ```bash
 cd personal-health-backend
-python seed_athletes.py
-python seed_sessions.py
+python seeds/seed_athletes.py
+python seeds/seed_sessions.py
 ```
 
 Creates athletes with IDs: `athlete_01`, `athlete_02`, `athlete_03` + sample sessions

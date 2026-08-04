@@ -32,7 +32,7 @@ sleep 3
 echo "🎨 Starting Frontend dev server (port 8083)..."
 cd ../personal-health-frontend
 npm install -q 2>/dev/null || npm i
-npm run dev:server &
+node server.js &
 FRONTEND_PID=$!
 sleep 3
 

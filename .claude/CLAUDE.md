@@ -12,19 +12,19 @@ A phone-first sports biomechanics AI platform. Athletes train using their phone 
 | Backend API | FastAPI (Python), MediaPipe, TensorFlow |
 | Frontend | Node.js, Express, EJS, port 8083 |
 | Database | JSON files in `db/` (sessions.json, athletes.json) |
-| ML pipeline | `generate_dataset.py` → `model_trainer.py` → `.tflite` |
+| ML pipeline | `pipeline/generate_dataset.py` → `pipeline/model_trainer.py` → `.tflite` |
 
 Key files:
 - `personal-health-backend/api_server.py` — main API, all endpoints
-- `personal-health-backend/pose_analyzer.py` — MediaPipe wrapper
-- `personal-health-backend/rppg_processor.py` — heart rate from camera
-- `personal-health-android/src/constants.js` — backend host config (set via `app.json`)
+- `personal-health-backend/services/pose_analyzer.py` — MediaPipe wrapper
+- `personal-health-backend/services/rppg_processor.py` — heart rate from camera
+- `personal-health-android/app.config.js` — backend host + all Expo config (authoritative; `app.json` is an inert stub)
 - `personal-health-frontend/server.js` — Express + proxy setup
 - `VISION.md` — full product vision, layers, GTM, milestones
 
 ## Coding rules
 
-- No hardcoded IPs anywhere. Frontend uses relative `/api` paths. Android reads `BACKEND_HOST` from `app.json extra.backendHost`.
+- No hardcoded IPs anywhere. Frontend uses relative `/api` paths. Android reads `BACKEND_HOST` from the environment via `app.config.js` (NOT `app.json` — Expo ignores it).
 - No "ActiveBharat" branding anywhere — this is "Personal Health" throughout.
 - Dashboard and UI: single accent colour `#06b6d4`, dark theme `#0a0e1a` / `#111827`, no random multi-colour variants.
 - API data keys: `/leaderboard` returns `data.leaderboard[]`, `/athletes` returns `{athletes:[], total:N}`, `/sessions/active` returns `{active_sessions:[]}`.
@@ -108,4 +108,4 @@ Three specialist agents are available in `.claude/agents/`:
 2. Check `api_server.py` endpoint response shapes before writing frontend JS that consumes them.
 3. For any new Android screen: copy the pattern from `TrainScreen.js` — it has the correct `expo-camera` + WebSocket + cleanup pattern.
 4. For new backend endpoints: add them inside the `if FASTAPI_AVAILABLE:` block, follow the existing response shape conventions.
-5. Run `seed_athletes.py` then `seed_sessions.py` after any `db/*.json` reset.
+5. Run `seeds/seed_athletes.py` then `seeds/seed_sessions.py` after any `db/*.json` reset.
