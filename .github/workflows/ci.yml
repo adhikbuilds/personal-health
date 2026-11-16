@@ -67,7 +67,9 @@ jobs:
 
           # Check Android source
           if grep -rn "192\.168\.\|10\.0\.\|172\.1[6-9]\.\|172\.2[0-9]\.\|172\.3[01]\." \
-            personal-health-android/src/ --include="*.js" --include="*.ts" --include="*.jsx" --include="*.tsx"; then
+            personal-health-android/src/ --include="*.js" --include="*.ts" --include="*.jsx" --include="*.tsx" \
+            | grep -v "10\.0\.2\.2"; then
+            # 10.0.2.2 is the Android emulator's fixed alias for the host machine, not a LAN address.
             echo "::error::Hardcoded private IP found in Android source!"
             FOUND=1
           fi
