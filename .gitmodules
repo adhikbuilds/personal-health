@@ -1,0 +1,12 @@
+[submodule "personal-health-android"]
+	path = personal-health-android
+	url = https://github.com/adhikbuilds/personal-health-android.git
+	branch = develop
+[submodule "personal-health-backend"]
+	path = personal-health-backend
+	url = https://github.com/adhikbuilds/personal-health-backend.git
+	branch = develop
+[submodule "personal-health-frontend"]
+	path = personal-health-frontend
+	url = https://github.com/adhikbuilds/personal-health-frontend.git
+	branch = develop

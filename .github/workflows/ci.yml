@@ -22,11 +22,13 @@ jobs:
         working-directory: personal-health-backend
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - name: Install ruff
-        run: pip install ruff
+        run: pip install ruff==0.17.5
       - name: Lint (errors = fail)
         run: ruff check . --config ruff.toml
       - name: Format check (diff only, fails if unformatted)
@@ -38,11 +40,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - uses: actions/setup-node@v4
         with:
           node-version: "18"
       - name: Install biome
-        run: npm install -g @biomejs/biome@latest
+        run: npm install -g @biomejs/biome@1.9.4
       - name: Lint Android + Frontend (errors = fail)
         run: biome lint . --config-path biome.json
       - name: Format check (fails if unformatted)
@@ -54,6 +58,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - name: Scan for hardcoded IPs in source
         run: |
           echo "Checking for hardcoded IPs..."
@@ -83,6 +89,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - name: Scan for ActiveBharat references
         run: |
           echo "Checking for old branding..."
@@ -106,6 +114,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - name: Validate backend structure
         run: |
           echo "Checking backend..."
@@ -144,6 +154,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
